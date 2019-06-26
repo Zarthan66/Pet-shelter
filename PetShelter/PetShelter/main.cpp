@@ -3,5 +3,6 @@
 
 int main()
 {
-	std::cout << "HelloWorld!" << std::endl;
+	 Dogs Bulldog(true, 15000,"bulldog");
+	 Bulldog.print_identity();
 }
