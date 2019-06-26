@@ -8,67 +8,86 @@ protected:
 	bool adopted = false;
 	bool isMale;
 	bool isSick;
-	int price;
-	int age;
-	float speed;
+	int price; // USD
+	int age; // in month
+	int speed; // km/h
 	std::string type;
-	std::string availableEmotion[6] = { "Calm", "Aggresive", "Peacefull", "Crazy", "Lazy" };
 	std::string emotion;
-    public:
+
+public:
+	// Print the details about the animals, included their condition and information
+	void PrintIdentity();
+	// Give random emotional condition if we didn't specify for it
+	std::string EmotionalGenerator();
 	// Animals speak were depended on their condition and emotion
-	virtual void speak() = 0;
-	void print_identity ();
+	virtual void Speak() = 0;
 };
 
-// A class for all kind of dogs
 struct Dogs : public Animals
 {
 public:
-	Dogs(bool isMale, int price, std::string type)
+	Dogs(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->isMale = isMale;
-		this->price = price;
 		this->type = type;
-	}
+		this->isMale = isMale;
+		this->isSick = isSick;
+		this->age = age;
+		this->speed = speed;
+		this->price = price;
 
-	void speak();
+		if(emotion == "")
+			this->emotion = EmotionalGenerator();
+	}
+	void Speak();
 };
 
-// A class for all kind of cats
 struct Cats : public Animals
 {
-	Cats(bool isMale, int price, std::string type)
+	Cats(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->isMale = isMale;
-		this->price = price;
 		this->type = type;
-	}
+		this->isMale = isMale;
+		this->isSick = isSick;
+		this->age = age;
+		this->speed = speed;
+		this->price = price;
 
-	void speak();
+		if (emotion == "")
+			this->emotion = EmotionalGenerator();
+	}
+	void Speak();
 };
 
-class Rabbits :public Animals
+struct Rabbits : public Animals
 {
-	public:
-	Rabbits(bool IsMale, int price ,std::string type)
+	Rabbits(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->isMale =isMale;
+		this->type = type;
+		this->isMale = isMale;
+		this->isSick = isSick;
+		this->age = age;
+		this->speed = speed;
 		this->price = price;
-		this->type =type;
 
-	}
-        void speak();
+		if (emotion == "")
+			this->emotion = EmotionalGenerator();
+	}	
+	void Speak();
 };
 
-class Birds :public Animals
+struct Birds :public Animals
 {
-	public:
-	Birds(bool isMale, int price ,std::string type)
+	Birds(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->isMale =isMale;
+		this->type = type;
+		this->isMale = isMale;
+		this->isSick = isSick;
+		this->age = age;
+		this->speed = speed;
 		this->price = price;
-		this->type =type;
 
+		if (emotion == "")
+			this->emotion = EmotionalGenerator();
 	}
-        void speak();
+	void Speak();
 };

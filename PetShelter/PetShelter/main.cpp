@@ -3,6 +3,7 @@
 
 int main()
 {
-	 Dogs Bulldog(true, 15000,"bulldog");
-	 Bulldog.print_identity();
+	Dogs dog1("Siberian Husky");
+	dog1.PrintIdentity();
+	dog1.Speak();
 }

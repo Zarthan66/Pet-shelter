@@ -1,21 +1,31 @@
 #include "Animals.h"
+#include <ctime>
+#include <cstdlib>
 
-void Animals::print_identity()
+void Animals::PrintIdentity()
 {
-    if(isMale==true)
-    {
-        std::cout <<"Gender: "<< "Male\n";
-    }
-    else
-    {
-        std::cout <<"Gender: "<< "female\n";
-    }
+	std::cout << "Type : " << type << "\n";
+	std::cout << "Age : " << age << "\n";
+	
+	std::cout << "Gender: ";
+	isMale == true ? 
+		std::cout << "Male" :
+		std::cout << "Female";
+	std::cout << "\n";
 
-    std::cout << "Price: "<<price<<std::endl;
-    std::cout << "type: "<< type <<std:: endl;
-
+	std::cout << "Speed : " << speed << " km/h\n";
+	std::cout << "Stats : " << emotion << "\n";
+	std::cout << "Price: " << price << "\n";
 }
-void Dogs::speak()
+
+std::string Animals::EmotionalGenerator()
+{
+	std::string availableEmotion[5] = { "Calm", "Aggresive", "Peacefull", "Crazy", "Lazy" };
+	srand(time(0));
+	return availableEmotion[rand() % 5];
+}
+
+void Dogs::Speak()
 {
 	if (isSick == true)
 	{
@@ -31,7 +41,7 @@ void Dogs::speak()
 		{
 			std::cout << "Rrrrrgggghh Bark Bark!!\n";
 		}
-		else if (emotion == "Peacefull")
+		else if (emotion == "Peaceful")
 		{
 			std::cout << "Bark Bark Bark!\n";
 		}
@@ -50,7 +60,7 @@ void Dogs::speak()
 	}
 }
 
-void Cats::speak()
+void Cats::Speak()
 {
 	if (isSick == true)
 	{
@@ -66,7 +76,7 @@ void Cats::speak()
 		{
 			std::cout << "Shriek...\n";
 		}
-		else if (emotion == "Peacefull")
+		else if (emotion == "Peaceful")
 		{
 			std::cout << "Meow Meow Meow!\n";
 		}
@@ -85,42 +95,12 @@ void Cats::speak()
 	}
 }
 
-void Rabbits::speak()
+void Rabbits::Speak()
 {
-	if (isSick == true)
-	{
-		std::cout << "...\n";
-	}
-	else
-	{
-		if (emotion == "Crazy")
-		{
-			std::cout << "\n";
-		}
-		else if (emotion == "Aggresive")
-		{
-			std::cout << "\n";
-		}
-		else if (emotion == "Peacefull")
-		{
-			std::cout << "\n";
-		}
-		else if (emotion == "Calm")
-		{
-			std::cout << "\n";
-		}
-		else if (emotion == "")
-		{
-			std::cout << "\n";
-		}
-		else
-		{
-			std::cout << "Error, undefined emotion\n";
-		}
-	}
+	std::cout << "....\n";
 }
 
-void Birds::speak()
+void Birds::Speak()
 {
 	if (isSick == true)
 	{
@@ -136,7 +116,7 @@ void Birds::speak()
 		{
 			std::cout << "CUIIIT CUIIIT\n";
 		}
-		else if (emotion == "Peacefull")
+		else if (emotion == "Peaceful")
 		{
 			std::cout << "Cuit cuit cuit cuit\n";
 		}
