@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
 // A simple class for all animals
 struct Animals
