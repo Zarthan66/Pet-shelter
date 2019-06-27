@@ -1,27 +1,25 @@
 #include "Animals.h"
-#include <ctime>
 #include <cstdlib>
 
 void Animals::PrintIdentity()
 {
-	std::cout << "Type : " << type << "\n";
-	std::cout << "Age : " << age << "\n";
+	std::cout << "Type \t: " << type << "\n";
+	std::cout << "Age \t: " << age << " years old\n";
 	
-	std::cout << "Gender: ";
+	std::cout << "Gender \t: ";
 	isMale == true ? 
 		std::cout << "Male" :
 		std::cout << "Female";
 	std::cout << "\n";
 
-	std::cout << "Speed : " << speed << " km/h\n";
-	std::cout << "Stats : " << emotion << "\n";
-	std::cout << "Price: " << price << "\n";
+	std::cout << "Speed \t: " << speed << " km/h\n";
+	std::cout << "Stats \t: " << emotion << "\n";
+	std::cout << "Price \t: " << price << " USD\n";
 }
 
 std::string Animals::EmotionalGenerator()
 {
-	std::string availableEmotion[5] = { "Calm", "Aggresive", "Peacefull", "Crazy", "Lazy" };
-	srand(time(0));
+	std::string availableEmotion[5] = { "Calm", "Aggresive", "Peacefull", "Crazy", "Lazy" };	
 	return availableEmotion[rand() % 5];
 }
 

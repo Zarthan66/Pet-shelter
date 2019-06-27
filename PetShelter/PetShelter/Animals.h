@@ -5,10 +5,10 @@
 struct Animals
 {
 protected:
-	bool adopted = false;
+	bool adopted;
 	bool isMale;
 	bool isSick;
-	int price; // USD
+	float price; // USD
 	int age; // in month
 	int speed; // km/h
 	std::string type;
@@ -26,9 +26,10 @@ public:
 struct Dogs : public Animals
 {
 public:
-	Dogs(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
+	Dogs(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
+		this->emotion = emotion;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
@@ -43,7 +44,7 @@ public:
 
 struct Cats : public Animals
 {
-	Cats(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
+	Cats(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
 		this->isMale = isMale;
@@ -60,7 +61,7 @@ struct Cats : public Animals
 
 struct Rabbits : public Animals
 {
-	Rabbits(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
+	Rabbits(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
 		this->isMale = isMale;
@@ -77,7 +78,7 @@ struct Rabbits : public Animals
 
 struct Birds :public Animals
 {
-	Birds(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
+	Birds(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
 		this->isMale = isMale;
