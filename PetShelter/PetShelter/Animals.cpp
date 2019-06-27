@@ -141,13 +141,14 @@ void Birds::Speak()
 }
 
 void mainProgram::menu()
-{
+{   a:
+
 	int choice;
 	std::cout << "Welcome to Pet Shelter\n";
 	std::cout <<"======================\n";
 	std::cout <<"1. New Animals\n"
-	                 <<"2. Available Animals\n"
-	                 <<"3. Adopted Animals\n"
+	                 <<"2. Animals available\n"
+	                 <<"3. Animals adoption\n"
 	                 <<"4. Exit\n\n";
 	 std::cout <<"your choice: " ;
 	 std::cin >>choice;
@@ -159,11 +160,10 @@ void mainProgram::menu()
 	 	display();
 	 	break;
 	 	case 2:
-       		 //display();
-	 	//availableAnimals();
+       	display();
 	 	break;
 	 	case 3:
-	 	//adoptedAnimals();
+	 	animalsAdoption();
 	 	break;
 	 	case 4:
 	 	exit(0);
@@ -174,6 +174,7 @@ void mainProgram::menu()
 
 	 }
 
+    goto a;
 
 }
 
@@ -249,15 +250,15 @@ void mainProgram::newAnimals()
 
 }
 
-   void mainProgram::display()
-   {
-      //system("cls");
+void mainProgram::display()
+{
+
        if(!dogs.empty())
        {
             std::cout << "Dogs Data" << std::endl;
             std::cout << "======================" << std::endl;
             std::vector<Dogs>::iterator it;
-	       
+
             for ( it = dogs.begin(); it != dogs.end(); ++it )
             {
                 it->PrintIdentity();
@@ -269,7 +270,7 @@ void mainProgram::newAnimals()
             std::cout << "Cats Data" << std::endl;
             std::cout << "======================" << std::endl;
             std::vector<Cats>::iterator it;
-	       
+
             for ( it = cats.begin(); it != cats.end(); ++it )
             {
                 it->PrintIdentity();
@@ -281,7 +282,7 @@ void mainProgram::newAnimals()
             std::cout << "Rabbits Data" << std::endl;
             std::cout << "======================" << std::endl;
             std::vector<Rabbits>::iterator it;
-	       
+
             for ( it = rabbits.begin(); it != rabbits.end(); ++it )
             {
                 it->PrintIdentity();
@@ -293,12 +294,124 @@ void mainProgram::newAnimals()
             std::cout << "Birds Data" << std::endl;
             std::cout << "======================" << std::endl;
             std::vector<Birds>::iterator it;
-	       
+
             for ( it = birds.begin(); it != birds.end(); ++it )
             {
                 it->PrintIdentity();
                 std::cout << std::endl;
             }
        }
-   }
+ }
 
+
+
+void mainProgram::animalsAdoption()
+{
+        int a;
+        std::cout << "1. Animals Adoption \n2. See Animals Adopted \n\nChoice: " ;
+        std::cin >> a;
+
+        if (a==1)
+        {
+            int choice;
+            std::cout <<"1. Dog\n"
+                  <<"2. Cat\n"
+                  <<"3. Rabbit\n"
+                  <<"4. Bird\n\n";
+            std::cout << "what kind of animal do you want to adoption: ";
+            std::cin >> choice;
+
+            if(choice == 1 && !dogs.empty())
+            {
+                int random = rand() % dogs.size();
+
+                dogsAdopted.push_back(dogs[random]);
+
+                dogs.erase(dogs.begin()+ random);
+
+
+            }
+            else if(choice == 2 && !cats.empty())
+            {
+                int random = rand() % cats.size();
+
+                catsAdopted.push_back(cats[random]);
+
+                cats.erase(cats.begin()+ random);
+            }
+            else if(choice == 3 && !rabbits.empty())
+            {
+                int random = rand() % rabbits.size();
+
+                rabbitsAdopted.push_back(rabbits[random]);
+
+                rabbits.erase(rabbits.begin()+ random);
+            }
+            else if(choice == 4 && !birds.empty())
+            {
+                int random = rand() % birds.size();
+
+                birdsAdopted.push_back(birds[random]);
+
+                birds.erase(birds.begin()+ random);
+            }
+            else
+            {
+                std::cout << "There is no Animals Available or Incorrect Choice!" << std::endl;
+            }
+        }
+	
+        else if (a==2)
+        {
+            if(!dogsAdopted.empty())
+            {
+            	std::cout << "Dogs Data" << std::endl;
+            	std::cout << "======================" << std::endl;
+            	std::vector<Dogs>::iterator it;
+
+            	for ( it = dogsAdopted.begin(); it != dogsAdopted.end(); ++it )
+            	{
+                	it->PrintIdentity();
+                	std::cout << std::endl;
+            	}
+	    }
+		
+	    if(!catsAdopted.empty())
+            {
+            	std::cout << "Cats Data" << std::endl;
+            	std::cout << "======================" << std::endl;
+            	std::vector<Cats>::iterator it;
+
+            	for ( it = catsAdopted.begin(); it != catsAdopted.end(); ++it )
+            	{
+                	it->PrintIdentity();
+                	std::cout << std::endl;
+            	}
+       	    }
+		
+       	    if(!rabbitsAdopted.empty())
+	    {
+            	std::cout << "Rabbits Data" << std::endl;
+            	std::cout << "======================" << std::endl;
+            	std::vector<Rabbits>::iterator it;
+
+            	for ( it = rabbitsAdopted.begin(); it != rabbitsAdopted.end(); ++it )
+                {
+               		 it->PrintIdentity();
+               		 std::cout << std::endl;
+                }
+             }
+      	     if(!birdsAdopted.empty())
+       	     {
+            	std::cout << "Birds Data" << std::endl;
+            	std::cout << "======================" << std::endl;
+            	std::vector<Birds>::iterator it;
+
+            	for ( it = birdsAdopted.begin(); it != birdsAdopted.end(); ++it )
+            	{
+               		 it->PrintIdentity();
+ 			 std::cout << std::endl;
+            	}
+       	      }
+        }
+}
