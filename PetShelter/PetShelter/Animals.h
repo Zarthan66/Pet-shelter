@@ -5,7 +5,7 @@
 struct Animals
 {
 protected:
-	bool adopted;
+	bool adopted ;
 	bool isMale;
 	bool isSick;
 	float price; // USD
@@ -26,10 +26,9 @@ public:
 struct Dogs : public Animals
 {
 public:
-	Dogs(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Dogs(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
 	{
 		this->type = type;
-		this->emotion = emotion;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
@@ -44,7 +43,7 @@ public:
 
 struct Cats : public Animals
 {
-	Cats(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Cats(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
 	{
 		this->type = type;
 		this->isMale = isMale;
@@ -61,24 +60,7 @@ struct Cats : public Animals
 
 struct Rabbits : public Animals
 {
-	Rabbits(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
-	{
-		this->type = type;
-		this->isMale = isMale;
-		this->isSick = isSick;
-		this->age = age;
-		this->speed = speed;
-		this->price = price;
-
-		if (emotion == "")
-			this->emotion = EmotionalGenerator();
-	}	
-	void Speak();
-};
-
-struct Birds :public Animals
-{
-	Birds(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Rabbits(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
 	{
 		this->type = type;
 		this->isMale = isMale;
@@ -91,4 +73,41 @@ struct Birds :public Animals
 			this->emotion = EmotionalGenerator();
 	}
 	void Speak();
+};
+
+struct Birds :public Animals
+{
+	Birds(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
+	{
+		this->type = type;
+		this->isMale = isMale;
+		this->isSick = isSick;
+		this->age = age;
+		this->speed = speed;
+		this->price = price;
+
+		if (emotion == "")
+			this->emotion = EmotionalGenerator();
+	}
+	void Speak();
+};
+
+struct mainProgram
+{
+    protected :
+    std::vector<Dogs>dogs;
+    std::vector<Cats>cats;
+    std::vector<Rabbits>rabbits;
+    std::vector<Birds>birds;
+
+    public:
+// menu() to main menu of program
+    void menu();
+//newAnimals for make data to Animals
+    void newAnimals();
+    void availableAnimals();
+    void adoptedAnimals();
+//display() to display all data
+    void display();
+
 };
