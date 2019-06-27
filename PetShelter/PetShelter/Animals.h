@@ -96,19 +96,27 @@ struct Birds :public Animals
 struct mainProgram
 {
     protected :
+    // animals available
     std::vector<Dogs>dogs;
     std::vector<Cats>cats;
     std::vector<Rabbits>rabbits;
     std::vector<Birds>birds;
+    //Animals was adopted
+    std::vector<Dogs>dogsAdopted;
+    std::vector<Cats>catsAdopted;
+    std::vector<Rabbits>rabbitsAdopted;
+    std::vector<Birds>birdsAdopted;
 
     public:
 // menu() to main menu of program
     void menu();
 //newAnimals for make data to Animals
     void newAnimals();
-    void availableAnimals();
-    void adoptedAnimals();
+
+// to Animals adoption by random
+    void animalsAdoption();
 //display() to display all data
     void display();
 
 };
+
