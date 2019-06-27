@@ -160,7 +160,7 @@ void mainProgram::menu()
 	 	display();
 	 	break;
 	 	case 2:
-       	display();
+		display();
 	 	break;
 	 	case 3:
 	 	animalsAdoption();
