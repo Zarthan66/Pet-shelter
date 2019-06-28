@@ -27,9 +27,10 @@ public:
 struct Dogs : public Animals
 {
 public:
-	Dogs(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
+	Dogs(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
+		this->emotion = emotion;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
@@ -44,9 +45,10 @@ public:
 
 struct Cats : public Animals
 {
-	Cats(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
+	Cats(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
+		this->emotion = emotion;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
@@ -61,9 +63,10 @@ struct Cats : public Animals
 
 struct Rabbits : public Animals
 {
-	Rabbits(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
+	Rabbits(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
+		this->emotion = emotion;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
@@ -76,11 +79,12 @@ struct Rabbits : public Animals
 	void Speak();
 };
 
-struct Birds :public Animals
+struct Birds : public Animals
 {
-	Birds(std::string type,  bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0,std::string emotion = "")
+	Birds(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
 	{
 		this->type = type;
+		this->emotion = emotion;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
@@ -93,10 +97,9 @@ struct Birds :public Animals
 	void Speak();
 };
 
-struct mainProgram
+struct MainProgram
 {
-    protected :
-    // animals available
+	// animals available
     std::vector<Dogs>dogs;
     std::vector<Cats>cats;
     std::vector<Rabbits>rabbits;
@@ -108,15 +111,16 @@ struct mainProgram
     std::vector<Birds>birdsAdopted;
 
     public:
-// menu() to main menu of program
+	// menu() to main menu of program
     void menu();
-//newAnimals for make data to Animals
+	
+	//newAnimals for make data to Animals
     void newAnimals();
 
-// to Animals adoption by random
+	// to Animals adoption by random
     void animalsAdoption();
-//display() to display all data
-    void display();
 
+	//display() to display all data
+    void display();
 };
 

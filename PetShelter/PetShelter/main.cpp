@@ -8,6 +8,6 @@ int main()
 	// To avoid the object get the same emotion
 	srand(time(NULL));
 	
-	mainProgram a;
+	MainProgram a;
 	a.menu();
 }
