@@ -222,22 +222,22 @@ void MainProgram::newAnimals()
 		if (choice == 1)
 		{
 			//(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
-			Dogs dog(type, "Calm", isMale, isSick, age, speed, price);
+			Dogs dog(type, emotion, isMale, isSick, age, speed, price);
 			dogs.push_back(dog);
 		}
 		else if (choice == 2)
 		{
-			Cats cat(type, "Calm", isMale, isSick, age, speed, price);
+			Cats cat(type, emotion, isMale, isSick, age, speed, price);
 			cats.push_back(cat);
 		}
 		else if (choice == 3)
 		{
-			Rabbits rabbit(type, "Calm", isMale, isSick, age, speed, price);
+			Rabbits rabbit(type, emotion, isMale, isSick, age, speed, price);
 			rabbits.push_back(rabbit);
 		}
 		else if (choice == 4)
 		{
-			Birds bird(type, "Calm", isMale, isSick, age, speed, price);
+			Birds bird(type, emotion, isMale, isSick, age, speed, price);
 			birds.push_back(bird);
 		}
 	}
