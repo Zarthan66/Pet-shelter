@@ -159,22 +159,22 @@ void MainProgram::menu()
 
         switch (choice)
         {
-            case 1:
-            newAnimals();
-            display();
-            break;
-            case 2:
-            display();
-            break;
-            case 3:
-            animalsAdoption();
-            break;
-            case 4:
-            exit(0);
-            break;
-            default:
-            std::cout <<"please enter according to the menu";
-            break;
+            	case 1:
+            	newAnimals();
+            	display();
+            	break;
+            	case 2:
+            	display();
+            	break;
+            	case 3:
+            	animalsAdoption();
+            	break;
+            	case 4:
+            	exit(0);
+            	break;
+            	default:
+            	std::cout <<"please enter according to the menu";
+           	break;
         }
         //do while untuk jika lanjut kembali ke menu , jiga tidak , program terhenti
         std::cout << "do you want continue(y/n): ";
