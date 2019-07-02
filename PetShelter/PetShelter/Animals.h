@@ -6,121 +6,114 @@
 struct Animals
 {
 protected:
-	bool adopted ;
+	bool adopted;
 	bool isMale;
 	bool isSick;
-	float price; // USD
+	int price; // USD
 	int age; // in month
-	int speed; // km/h
-	std::string type;
-	std::string emotion;
+	int speed; // mph
+	std::string subspecies;
+	std::string personality;
 
 public:
 	// Print the details about the animals, included their condition and information
-	void PrintIdentity();
-	// Give random emotional condition if we didn't specify for it
-	std::string EmotionalGenerator();
-	// Animals speak were depended on their condition and emotion
-	virtual void Speak() = 0;
+	void printIdentity();
+	// Animals speak were depended on their condition and personality
+	virtual void speak() = 0;
+	// Set some information about the animals
+	void setAnimalDetails();
 };
 
 struct Dogs : public Animals
 {
 public:
-	Dogs(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Dogs(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = type;
-		this->emotion = emotion;
+		this->subspecies = subspecies;
+		this->personality = personality;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
 		this->speed = speed;
 		this->price = price;
-
-		if(emotion == "")
-			this->emotion = EmotionalGenerator();
 	}
-	void Speak();
+	void speak();
 };
 
 struct Cats : public Animals
 {
-	Cats(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Cats(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = type;
-		this->emotion = emotion;
+		this->subspecies = subspecies;
+		this->personality = personality;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
 		this->speed = speed;
 		this->price = price;
-
-		if (emotion == "")
-			this->emotion = EmotionalGenerator();
 	}
-	void Speak();
+	void speak();
 };
 
 struct Rabbits : public Animals
 {
-	Rabbits(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Rabbits(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = type;
-		this->emotion = emotion;
+		this->subspecies = subspecies;
+		this->personality = personality;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
 		this->speed = speed;
 		this->price = price;
-
-		if (emotion == "")
-			this->emotion = EmotionalGenerator();
 	}
-	void Speak();
+	void speak();
 };
 
 struct Birds : public Animals
 {
-	Birds(std::string type, std::string emotion = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, float price = 0)
+	Birds(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = type;
-		this->emotion = emotion;
+		this->subspecies = subspecies;
+		this->personality = personality;
 		this->isMale = isMale;
 		this->isSick = isSick;
 		this->age = age;
 		this->speed = speed;
 		this->price = price;
-
-		if (emotion == "")
-			this->emotion = EmotionalGenerator();
 	}
-	void Speak();
+	void speak();
 };
 
-struct MainProgram
+class Interface
 {
 	// animals available
     std::vector<Dogs>dogs;
     std::vector<Cats>cats;
     std::vector<Rabbits>rabbits;
     std::vector<Birds>birds;
-    //Animals was adopted
+    
+	//Animals was adopted
     std::vector<Dogs>dogsAdopted;
     std::vector<Cats>catsAdopted;
     std::vector<Rabbits>rabbitsAdopted;
     std::vector<Birds>birdsAdopted;
 
-    public:
-	// menu() to main menu of program
-    void menu();
 
+    public:
 	//newAnimals for make data to Animals
     void newAnimals();
 
 	// to Animals adoption by random
     void animalsAdoption();
 
-	//display() to display all data
-    void display();
+	// check current available animals
+    void checkAnimals();
 };
 
+// Created to avoid bug when the user accidentally give words as input or spaces
+// Get an answer from the user and return it as an integer
+int userAnswer();
+
+// Give some information for the animals automatically
+void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed);
