@@ -17,4 +17,4 @@ New Update!!
 - Several bugs are fixed
 - New user interface menu
 - Currency are changed from USD to $
-etc..
+- etc..
