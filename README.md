@@ -1,7 +1,7 @@
 # Pet-shelter
 A simple project created to get experience with programming and teamwork with github
 
-New Update!!
+New Update!! 1.0.6
 - Rename several class function to match and give some consistency
 - Fix inconsistency of coding style
 - Rename several class
