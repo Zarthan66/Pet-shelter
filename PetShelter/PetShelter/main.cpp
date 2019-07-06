@@ -4,12 +4,15 @@
 #include <string>
 #include "Animals.h"
 
+
 int main()
 {
 	// To avoid the object get the same emotion
 	srand(time(NULL));
-
 	Interface menu;
+
+	// Initialize the arrays size
+	menu.updateSizeArrays();
 
 	bool exitProgram{ false };
 	while (exitProgram == false)
@@ -32,8 +35,12 @@ int main()
 			std::cout << "       New Animals       \n";
 			std::cout << "=========================\n";
 			menu.newAnimals();
+			menu.updateAnimals();
 			break;
 		case 2:
+			/*
+				Bugs will appear when the arrays are empty
+			*/
 			std::cout << "=========================\n";
 			std::cout << " Check Available Animals \n";
 			std::cout << "=========================\n";
@@ -43,7 +50,8 @@ int main()
 			std::cout << "=========================\n";
 			std::cout << "      Adopt Animals      \n";
 			std::cout << "=========================\n";
-			menu.animalsAdoption();
+			//menu.animalsAdoption();
+			std::cout << "Function are not ready!!\n";
 			break;
 		case 4:
 			exitProgram = true;

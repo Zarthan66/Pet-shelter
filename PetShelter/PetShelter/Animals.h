@@ -18,10 +18,10 @@ protected:
 public:
 	// Print the details about the animals, included their condition and information
 	void printIdentity();
-	// Animals speak were depended on their condition and personality
+	// Animals will speak based on their condition and personality
 	virtual void speak() = 0;
-	// Set some information about the animals
-	void setAnimalDetails();
+	// Get new information about the animals
+	void newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price);
 };
 
 struct Dogs : public Animals
@@ -87,33 +87,47 @@ struct Birds : public Animals
 
 class Interface
 {
+private:
+	int dogTotal{ 0 };
+	int catTotal{ 0 };
+	int rabbitTotal{ 0 };
+	int birdTotal{ 0 };
+
 	// animals available
-    std::vector<Dogs>dogs;
-    std::vector<Cats>cats;
-    std::vector<Rabbits>rabbits;
-    std::vector<Birds>birds;
+	std::vector<Dogs*>dogs;
+	std::vector<Cats*>cats;
+	std::vector<Rabbits*>rabbits;
+	std::vector<Birds*>birds;
+	/*
+		//Animals was adopted
+		std::vector<Dogs>dogsAdopted;
+		std::vector<Cats>catsAdopted;
+		std::vector<Rabbits>rabbitsAdopted;
+		std::vector<Birds>birdsAdopted;
+	*/
 
-	//Animals was adopted
-    std::vector<Dogs>dogsAdopted;
-    std::vector<Cats>catsAdopted;
-    std::vector<Rabbits>rabbitsAdopted;
-    std::vector<Birds>birdsAdopted;
-
-
-    public:
-	//newAnimals for make data to Animals
+	
+public:
+	// to get new animal
     void newAnimals();
 
 	// to Animals adoption by random
-    void animalsAdoption();
+    //void animalsAdoption();
 
 	// check current available animals
     void checkAnimals();
+
+	// count every animal type on AnimalDatabase.bin to update the size of animal arrays
+	void updateSizeArrays();
+
+	// reading database to updating the animals
+	void updateAnimals();
 };
 
-// Created to avoid bug when the user accidentally give words as input or spaces
 // Get an answer from the user and return it as an integer
 int userAnswer();
 
 // Give some information for the animals automatically
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed);
+
+

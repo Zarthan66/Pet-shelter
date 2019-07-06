@@ -6,6 +6,7 @@
 
 void Animals::printIdentity()
 {
+	std::cout << "===========================================\n";
 	std::cout << "Type\t\t: " << subspecies << "\n";
 
 	if (age <= 0)
@@ -28,32 +29,7 @@ void Animals::printIdentity()
 	std::cout << "Speed\t\t: " << speed << " mph\n";
 	std::cout << "Stats\t\t: " << personality << "\n";
 	std::cout << "Price\t\t: " << price << " $\n";
-}
-
-void Animals::setAnimalDetails()
-{
-	int choices;
-	std::cout << "Give some information about the animal or fill \"-\" to keep it empty.";
-	std::cout << "Species/breeds\t:";
-	getline(std::cin, subspecies);
-
-	std::cout << "Gender\t:";
-	std::cout << "1. Male\n";
-	std::cout << "2. Female\n";
-
-	choices = userAnswer();
-
-	switch (choices)
-	{
-	case 1:
-		isMale = true;
-		break;
-	case 2:
-		isMale = false;
-		break;
-	default:
-		std::cout << "Please try again, make sure you choose one of the options.\n";
-	}
+	std::cout << "===========================================\n";
 }
 
 void Dogs::speak()
@@ -85,6 +61,17 @@ void Dogs::speak()
 			std::cout << "Error, undefined personality\n";
 		}
 	}
+}
+
+void Animals::newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price)
+{
+	this->subspecies = subspecies;
+	this->personality = personality;
+	this->isMale = isMale;
+	this->isSick = isSick;
+	this->age = age;
+	this->speed = speed;
+	this->price = price;
 }
 
 void Cats::speak()
@@ -239,13 +226,35 @@ void Interface::newAnimals()
 		int price{ userAnswer() };
 
         // ofstream untuk membuat file txt yang menampung data hewan, setiap kelas hewan mempunyai file nya masing-masing
-        std::ofstream file;
-		// For Dog type
+        std::ofstream save("AnimalDatabase.bin", std::ios::app);
+
+		if (save.is_open())
+		{
+			save << type << "\n";
+			save << subspecies << "\n";
+			save << personality << "\n";
+			save << isMale << "\n";
+			save << isSick << "\n";
+			save << age << "\n";
+			save << speed << "\n";
+			save << price << "\n";
+		}
+		else
+		{
+			std::cout << "Database could not be opened for saving the data!\n";
+			exit(1);
+		}
+
+		/*////////////////////////////////////////////////////////////////
+			Unused method, ignore this but don't delete it
+		//////////////////////////////////////////////////////////////////
+
+		For Dog type
 		if (choices == 1)
 		{
 			//Dogs dog(subspecies, personality, isMale, isSick, age, speed, price);
 			file.open("Dogs.txt", std::ios::app);
-			file << subspecies <<"\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
+			file << subspecies << "\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
 			file.close();
 		}
 		// For Cat type
@@ -269,23 +278,36 @@ void Interface::newAnimals()
 			file << subspecies <<"\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
 			file.close();
 		}
+		*/
 	}
 }
 
 void Interface::checkAnimals()
 {
+	for (int i = 0; i < dogs.size(); i++)
+	{
+		dogs[i]->printIdentity();
+	}
 
-    std::ifstream data;
-    // variable sementara untuk menampung masukan dari file txt hewan, lalu dimasukan ke dalam kelas masing-masing hewan
-    bool isMale;
-	bool isSick;
-	int price; // USD
-	int age; // in month
-	int speed; // mph
-	std::string subspecies;
-	std::string personality;
+	for (int i = 0; i < cats.size(); i++)
+	{
+		cats[i]->printIdentity();
+	}
 
-        // membaca file Dogs.txt
+	for (int i = 0; i < rabbits.size(); i++)
+	{
+		rabbits[i]->printIdentity();
+	}
+
+	for (int i = 0; i < birds.size(); i++)
+	{
+		birds[i]->printIdentity();
+	}
+    /*//////////////////////////////////////////////////////
+		Unused method, ignore this but don't delete it
+	////////////////////////////////////////////////////////
+
+		// membaca file Dogs.txt
 		data.open("Dogs.txt");
 		if (data.is_open())
         {
@@ -348,13 +370,13 @@ void Interface::checkAnimals()
 
                 }
                    data.close();
+				   
         }
-
-
-
-
+		*/
+		
 }
 
+/* 
 // belum di perbarui, untuk sementara fungsi ini belum bisa di pake , masih code lama masih make vector
 void Interface::animalsAdoption()
 {
@@ -456,11 +478,13 @@ void Interface::animalsAdoption()
 		}
 	}
 }
+*/
 
 int userAnswer()
 {
-/*  Getline methode have some beneffit to avoid some bug
+/*  This methode have some beneffit to avoid some bug
 	But also cause some bug while on the loop
+
 	std::string answer{"0"};
 	std::cout << "Answer: ";
 	getline(std::cin, answer);
@@ -568,3 +592,158 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 		speed = rand() % range + minSpeed;
 	}
 }
+
+void Interface::updateSizeArrays()
+{
+	std::ifstream load("AnimalDatabase.bin", std::ios::app);
+	
+	if (load.is_open())
+	{
+		while (load)
+		{
+			std::string type;
+			getline(load, type);
+			if (type == "Dog")
+				++dogTotal;
+			else if (type == "Cat")
+				++catTotal;
+			else if (type == "Rabbit")
+				++rabbitTotal;
+			else if (type == "Bird")
+				++birdTotal;
+		}
+	}
+	else
+	{
+		std::cout << "Can't open the database to update the total of animals\n";
+		exit(1);
+	}
+}
+
+void Interface::updateAnimals()
+{
+	std::ifstream load("AnimalDatabase.bin", std::ios::app);
+
+	if (load.is_open())
+	{
+		// to get the right objects while updating it from the database
+		int dogIndex{ 0 };
+		int catIndex{ 0 };
+		int rabbitIndex{ 0 };
+		int birdIndex{ 0 };
+
+		// temporary variables
+		std::string type{ "Dog" };
+		std::string subspecies{ "Siberian Husky" };
+		std::string personality{ "Peacefull" };
+		bool isMale{ true };
+		bool isSick{ false };
+		int price{ 0 };
+		int age{ 0 };
+		int speed{ 0 };
+
+		while (load)
+		{
+			getline(load, type);
+
+			// Skip every blank input to avoid a bug
+			if (type == "")
+				continue;
+
+			getline(load, subspecies);
+			getline(load, personality);
+			load >> isMale;
+			load >> isSick;
+			load >> age;
+			load >> speed;
+			load >> price;
+
+			if (type == "Dog")
+			{
+				if (dogs.size() < dogTotal)
+					dogs.push_back(new Dogs(subspecies, personality, isMale, isSick, age, speed, price));
+				else
+					dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				dogIndex++;
+			}
+			else if (type == "Cat")
+			{
+				if (cats.size() < catTotal)
+					cats.push_back(new Cats(subspecies, personality, isMale, isSick, age, speed, price));
+				else
+					cats[catIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				catIndex++;
+			}
+			else if (type == "Rabbit")
+			{
+				if (rabbits.size() < rabbitTotal)
+					rabbits.push_back(new Rabbits(subspecies, personality, isMale, isSick, age, speed, price));
+				else
+					rabbits[rabbitIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				rabbitIndex++;
+			}
+			else if (type == "Bird")
+			{
+				if (birds.size() < birdTotal)
+					birds.push_back(new Birds(subspecies, personality, isMale, isSick, age, speed, price));
+				else
+					birds[birdIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				birdIndex++;
+			}
+			else
+			{
+				std::cout << "Something went wrong while updating the animals\n";
+				exit(1);
+			}
+		}
+	}
+	else
+	{
+		std::cout << "Can't open the database to update the animals\n";
+		exit(1);
+	}
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		Unused method, ignore this but don't delete it
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			// If didn't used getline on type, a bug can be occured
+			getline(load, type);
+			getline(load, subspecies);
+			load >> personality;
+			load >> isMale;
+			load >> isSick;
+			load >> age;
+			load >> speed;
+			load >> price;
+
+			using namespace animalArrays;
+
+			if (type == "Dog")
+			{
+				if (dogs.size() > dogIndex)
+					dogs[dogIndex]->push_back(new Dogs(subspecies, personality, isMale, isSick, age, speed, price));
+				else
+					dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				dogIndex++;
+			}
+			else if (type == "Cat")
+			{
+				cats[catIndex].newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				catIndex++;
+			}
+			else if (type == "Rabbit")
+			{
+				rabbits[rabbitIndex].newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				rabbitIndex++;
+			}
+			else if (type == "Bird")
+			{
+				birds[birdIndex].newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				birdIndex++;
+			}
+			else
+			{
+				std::cout << "Something went wrong while refreshing" << std::endl;
+			}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
