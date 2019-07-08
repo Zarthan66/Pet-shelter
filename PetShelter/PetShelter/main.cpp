@@ -35,6 +35,7 @@ int main()
 			std::cout << "       New Animals       \n";
 			std::cout << "=========================\n";
 			menu.newAnimals();
+			menu.updateSizeArrays();
 			menu.updateAnimals();
 			break;
 		case 2:
@@ -44,6 +45,8 @@ int main()
 			std::cout << "=========================\n";
 			std::cout << " Check Available Animals \n";
 			std::cout << "=========================\n";
+			menu.updateSizeArrays();
+			menu.updateAnimals();
 			menu.checkAnimals();
 			break;
 		case 3:

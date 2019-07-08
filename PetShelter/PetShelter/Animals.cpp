@@ -147,7 +147,7 @@ void Interface::newAnimals()
 	std::string type;
 	std::string subspecies;
 	std::string personality;
-	bool adopted;
+	//bool adopted;
 	bool isMale;
 	bool isSick;
 	int age;
@@ -248,7 +248,6 @@ void Interface::newAnimals()
 		/*////////////////////////////////////////////////////////////////
 			Unused method, ignore this but don't delete it
 		//////////////////////////////////////////////////////////////////
-
 		For Dog type
 		if (choices == 1)
 		{
@@ -284,29 +283,28 @@ void Interface::newAnimals()
 
 void Interface::checkAnimals()
 {
-	for (int i = 0; i < dogs.size(); i++)
+	for (size_t i = 0; i < dogs.size(); i++)
 	{
 		dogs[i]->printIdentity();
 	}
 
-	for (int i = 0; i < cats.size(); i++)
+	for (size_t i = 0; i < cats.size(); i++)
 	{
 		cats[i]->printIdentity();
 	}
 
-	for (int i = 0; i < rabbits.size(); i++)
+	for (size_t i = 0; i < rabbits.size(); i++)
 	{
 		rabbits[i]->printIdentity();
 	}
 
-	for (int i = 0; i < birds.size(); i++)
+	for (size_t i = 0; i < birds.size(); i++)
 	{
 		birds[i]->printIdentity();
 	}
     /*//////////////////////////////////////////////////////
 		Unused method, ignore this but don't delete it
 	////////////////////////////////////////////////////////
-
 		// membaca file Dogs.txt
 		data.open("Dogs.txt");
 		if (data.is_open())
@@ -319,11 +317,9 @@ void Interface::checkAnimals()
                     Dogs dog (subspecies, personality, isMale, isSick, age, speed, price);
                     dog.printIdentity();
                     std::cout << "\n";
-
                 }
                    data.close();
         }
-
         // membaca file Cats.txt
         data.open("Cats.txt");
 		if (data.is_open())
@@ -335,11 +331,9 @@ void Interface::checkAnimals()
                     Cats cat (subspecies, personality, isMale, isSick, age, speed, price);
                     cat.printIdentity();
                     std::cout << "\n";
-
                 }
                    data.close();
         }
-
         //// membaca file Rabbits.txt
         data.open("Rabbits.txt");
 		if (data.is_open())
@@ -351,11 +345,9 @@ void Interface::checkAnimals()
                     Rabbits rabbit (subspecies, personality, isMale, isSick, age, speed, price);
                     rabbit.printIdentity();
                     std::cout << "\n";
-
                 }
                    data.close();
         }
-
         //mwmbaca file birds.txt
         data.open("Birds.txt");
 		if (data.is_open())
@@ -367,16 +359,15 @@ void Interface::checkAnimals()
                     Birds bird(subspecies, personality, isMale, isSick, age, speed, price);
                     bird.printIdentity();
                     std::cout << "\n";
-
                 }
                    data.close();
-				   
+
         }
 		*/
-		
+
 }
 
-/* 
+/*
 // belum di perbarui, untuk sementara fungsi ini belum bisa di pake , masih code lama masih make vector
 void Interface::animalsAdoption()
 {
@@ -385,7 +376,6 @@ void Interface::animalsAdoption()
 	std::cout << "2. See Animals Adopted \n";
 	std::cout << "Choice: ";
 	std::cin >> answer;
-
 	switch (answer)
 	{
 	case 1:
@@ -396,7 +386,6 @@ void Interface::animalsAdoption()
 		std::cout << "4. Bird\n\n";
 		std::cout << "What kind of animal do you want to adoption: ";
 		std::cin >> choices;
-
 		if (choices == 1 && !dogs.empty())
 		{
 			int random = rand() % dogs.size();
@@ -431,32 +420,27 @@ void Interface::animalsAdoption()
 			std::cout << "Dogs Data" << std::endl;
 			std::cout << "======================" << std::endl;
 			std::vector<Dogs>::iterator it;
-
 			for (it = dogsAdopted.begin(); it != dogsAdopted.end(); ++it)
 			{
 				it->printIdentity();
 				std::cout << std::endl;
 			}
-
 			if (!catsAdopted.empty())
 			{
 				std::cout << "Cats Data" << std::endl;
 				std::cout << "======================" << std::endl;
 				std::vector<Cats>::iterator it;
-
 				for (it = catsAdopted.begin(); it != catsAdopted.end(); ++it)
 				{
 					it->printIdentity();
 					std::cout << std::endl;
 				}
 			}
-
 			if (!rabbitsAdopted.empty())
 			{
 				std::cout << "Rabbits Data" << std::endl;
 				std::cout << "======================" << std::endl;
 				std::vector<Rabbits>::iterator it;
-
 				for (it = rabbitsAdopted.begin(); it != rabbitsAdopted.end(); ++it)
 				{
 					it->printIdentity();
@@ -468,7 +452,6 @@ void Interface::animalsAdoption()
 				std::cout << "Birds Data" << std::endl;
 				std::cout << "======================" << std::endl;
 				std::vector<Birds>::iterator it;
-
 				for (it = birdsAdopted.begin(); it != birdsAdopted.end(); ++it)
 				{
 					it->printIdentity();
@@ -484,7 +467,6 @@ int userAnswer()
 {
 /*  This methode have some beneffit to avoid some bug
 	But also cause some bug while on the loop
-
 	std::string answer{"0"};
 	std::cout << "Answer: ";
 	getline(std::cin, answer);
@@ -595,8 +577,14 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 
 void Interface::updateSizeArrays()
 {
+    dogTotal =0;
+    catTotal =0;
+    rabbitTotal =0;
+    birdTotal =0;
+
+
 	std::ifstream load("AnimalDatabase.bin", std::ios::app);
-	
+
 	if (load.is_open())
 	{
 		while (load)
@@ -716,9 +704,7 @@ void Interface::updateAnimals()
 			load >> age;
 			load >> speed;
 			load >> price;
-
 			using namespace animalArrays;
-
 			if (type == "Dog")
 			{
 				if (dogs.size() > dogIndex)

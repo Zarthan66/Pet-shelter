@@ -88,10 +88,10 @@ struct Birds : public Animals
 class Interface
 {
 private:
-	int dogTotal{ 0 };
-	int catTotal{ 0 };
-	int rabbitTotal{ 0 };
-	int birdTotal{ 0 };
+	int dogTotal;
+	int catTotal;
+	int rabbitTotal;
+	int birdTotal;
 
 	// animals available
 	std::vector<Dogs*>dogs;
@@ -106,7 +106,7 @@ private:
 		std::vector<Birds>birdsAdopted;
 	*/
 
-	
+
 public:
 	// to get new animal
     void newAnimals();
@@ -129,5 +129,3 @@ int userAnswer();
 
 // Give some information for the animals automatically
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed);
-
-
