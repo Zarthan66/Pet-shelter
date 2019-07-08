@@ -88,18 +88,19 @@ struct Birds : public Animals
 class Interface
 {
 private:
-	int dogTotal;
-	int catTotal;
-	int rabbitTotal;
-	int birdTotal;
+	// Total animals from Database
+	int dogTotalDBase;
+	int catTotalDBase;
+	int rabbitTotalDBase;
+	int birdTotalDBase;
 
-	// animals available
+	// animals available to adopted
 	std::vector<Dogs*>dogs;
 	std::vector<Cats*>cats;
 	std::vector<Rabbits*>rabbits;
 	std::vector<Birds*>birds;
 	/*
-		//Animals was adopted
+		//Animals were adopted
 		std::vector<Dogs>dogsAdopted;
 		std::vector<Cats>catsAdopted;
 		std::vector<Rabbits>rabbitsAdopted;
@@ -129,3 +130,6 @@ int userAnswer();
 
 // Give some information for the animals automatically
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed);
+
+// Returns a random int that is better than rand 
+int randGenerator(int min, int max);

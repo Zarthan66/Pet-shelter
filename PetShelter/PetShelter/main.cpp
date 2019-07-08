@@ -24,7 +24,7 @@ int main()
 		std::cout << "1. New Animals\n";
 		std::cout << "2. Check Available Animals\n";
 		std::cout << "3. Adopt Animals\n";
-		std::cout << "4. Exit\n\n";
+		std::cout << "4. Exit\n";
 
 		choice = userAnswer();
 
@@ -60,7 +60,7 @@ int main()
 			exitProgram = true;
 			break;
 		default:
-			std::cout << "Please try again, make sure you choose one of the options.\n";
+			std::cout << "Please try again, make sure you choose one of the options.\n\n";
 			break;
 		}
 	}

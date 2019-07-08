@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <random>
 
 void Animals::printIdentity()
 {
@@ -154,7 +155,7 @@ void Interface::newAnimals()
 	int speed;
 
 	int totalAnimal{ 0 };
-	std::cout << "How much animal do you want?\n\n";
+	std::cout << "How much animal do you want?\n";
 	totalAnimal = userAnswer();
 
 	for (int i = 1; i <= totalAnimal; i++)
@@ -167,7 +168,7 @@ void Interface::newAnimals()
 			std::cout << "1. Dog\n";
 			std::cout << "2. Cat\n";
 			std::cout << "3. Rabbit\n";
-			std::cout << "4. Bird\n\n";
+			std::cout << "4. Bird\n";
 
 			choices = userAnswer();
 
@@ -225,7 +226,6 @@ void Interface::newAnimals()
 		std::cout << "What is the price for this animal? (USD)\n";
 		int price{ userAnswer() };
 
-        // ofstream untuk membuat file txt yang menampung data hewan, setiap kelas hewan mempunyai file nya masing-masing
         std::ofstream save("AnimalDatabase.bin", std::ios::app);
 
 		if (save.is_open())
@@ -244,127 +244,53 @@ void Interface::newAnimals()
 			std::cout << "Database could not be opened for saving the data!\n";
 			exit(1);
 		}
-
-		/*////////////////////////////////////////////////////////////////
-			Unused method, ignore this but don't delete it
-		//////////////////////////////////////////////////////////////////
-		For Dog type
-		if (choices == 1)
-		{
-			//Dogs dog(subspecies, personality, isMale, isSick, age, speed, price);
-			file.open("Dogs.txt", std::ios::app);
-			file << subspecies << "\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
-			file.close();
-		}
-		// For Cat type
-		else if (choices == 2)
-		{
-			file.open("Cats.txt", std::ios::app);
-			file << subspecies <<"\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
-			file.close();
-		}
-		// For Rabbit type
-		else if (choices == 3)
-		{
-			file.open("Rabbits.txt", std::ios::app);
-			file << subspecies <<"\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
-			file.close();
-		}
-		// For Bird type
-		else if (choices == 4)
-		{
-			file.open("Birds.txt", std::ios::app);
-			file << subspecies <<"\n"<< personality <<"\n"<< isMale <<"\n"<< isSick <<"\n"<< age <<"\n"<< speed <<"\n"<< price ;
-			file.close();
-		}
-		*/
 	}
 }
 
 void Interface::checkAnimals()
 {
-	for (size_t i = 0; i < dogs.size(); i++)
+	// Total animal from database
+	int totalAnimalDBase{ dogTotalDBase + catTotalDBase + rabbitTotalDBase + birdTotalDBase };
+
+	if (totalAnimalDBase > 0)
 	{
-		dogs[i]->printIdentity();
-	}
+		if (dogs.size() > 0)
+		{
+			std::cout << "Dogs :\n";
+			for (size_t i = 0; i < dogs.size(); i++)
+				dogs[i]->printIdentity();
+			
+			std::cout << "\n";
+		}
+		if (cats.size() > 0)
+		{
+			std::cout << "Cats :\n";
+			for (size_t i = 0; i < cats.size(); i++)
+				cats[i]->printIdentity();
+			
+			std::cout << "\n";
+		}
+		if (rabbits.size() > 0)
+		{
+			std::cout << "Rabbits :\n";
+			for (size_t i = 0; i < rabbits.size(); i++)
+				rabbits[i]->printIdentity();
+			
+			std::cout << "\n";
+		}
+		if (birds.size() > 0)
+		{
+			std::cout << "Birds :\n";
+			for (size_t i = 0; i < birds.size(); i++)
+				birds[i]->printIdentity();
 
-	for (size_t i = 0; i < cats.size(); i++)
+			std::cout << "\n";
+		}
+	}
+	else
 	{
-		cats[i]->printIdentity();
+		std::cout << "Sorry, there are no animals are available\n";
 	}
-
-	for (size_t i = 0; i < rabbits.size(); i++)
-	{
-		rabbits[i]->printIdentity();
-	}
-
-	for (size_t i = 0; i < birds.size(); i++)
-	{
-		birds[i]->printIdentity();
-	}
-    /*//////////////////////////////////////////////////////
-		Unused method, ignore this but don't delete it
-	////////////////////////////////////////////////////////
-		// membaca file Dogs.txt
-		data.open("Dogs.txt");
-		if (data.is_open())
-        {
-            std::cout << "Dogs Data" << std::endl;
-            std::cout << "======================" << std::endl;
-                // memakai getline untuk mengambil data species ysng memiliki spaci seperti "Liberian Husky"
-                while(getline(data,subspecies) && data >> personality >> isMale >> isSick >> age >> speed >> price )
-                {
-                    Dogs dog (subspecies, personality, isMale, isSick, age, speed, price);
-                    dog.printIdentity();
-                    std::cout << "\n";
-                }
-                   data.close();
-        }
-        // membaca file Cats.txt
-        data.open("Cats.txt");
-		if (data.is_open())
-        {
-            std::cout << "Cats Data" << std::endl;
-            std::cout << "======================" << std::endl;
-                while(getline(data,subspecies) && data >> personality >> isMale >> isSick >> age >> speed >> price )
-                {
-                    Cats cat (subspecies, personality, isMale, isSick, age, speed, price);
-                    cat.printIdentity();
-                    std::cout << "\n";
-                }
-                   data.close();
-        }
-        //// membaca file Rabbits.txt
-        data.open("Rabbits.txt");
-		if (data.is_open())
-        {
-            std::cout << "Rabbits Data" << std::endl;
-            std::cout << "======================" << std::endl;
-                while(getline(data,subspecies) && data >> personality >> isMale >> isSick >> age >> speed >> price )
-                {
-                    Rabbits rabbit (subspecies, personality, isMale, isSick, age, speed, price);
-                    rabbit.printIdentity();
-                    std::cout << "\n";
-                }
-                   data.close();
-        }
-        //mwmbaca file birds.txt
-        data.open("Birds.txt");
-		if (data.is_open())
-        {
-            std::cout << "Birds Data" << std::endl;
-            std::cout << "======================" << std::endl;
-                while(getline(data,subspecies) && data >> personality >> isMale >> isSick >> age >> speed >> price )
-                {
-                    Birds bird(subspecies, personality, isMale, isSick, age, speed, price);
-                    bird.printIdentity();
-                    std::cout << "\n";
-                }
-                   data.close();
-
-        }
-		*/
-
 }
 
 /*
@@ -465,8 +391,10 @@ void Interface::animalsAdoption()
 
 int userAnswer()
 {
-/*  This methode have some beneffit to avoid some bug
-	But also cause some bug while on the loop
+/*  
+	// This methode have some beneffit to avoid some bug
+	// But also cause some bug while on the loop
+
 	std::string answer{"0"};
 	std::cout << "Answer: ";
 	getline(std::cin, answer);
@@ -476,7 +404,7 @@ int userAnswer()
 */
 
 	int answer{ 0 };
-	std::cout << "Answer: ";
+	std::cout << "\nAnswer: ";
 	std::cin >> answer;
 	std::cout << std::endl;
 	return answer;
@@ -484,28 +412,26 @@ int userAnswer()
 
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed)
 {
-	// List of subspecies based on their type
-	std::string subspeciesDogs[5] = { "Bulldog", "Siberian Husky", "Doberman", "Rottweiler", "Chihuahua" };
-	std::string subspeciesCats[5] = { "Persian", "Toyger", "Munchkin", "Angora", "Birman" };
-	std::string subspeciesRabbits[5] = { "Stain", "Deilenaar", "Fuzzy Lop", "Cottontail", "Rex" };
-	std::string subspeciesBirds[5] = { "Lovebird", "Parakeet", "Owl", "Parrot", "Starling" };
-
 	// Subspecies section
 	if (type == "Dog")
 	{
-		subspecies = subspeciesDogs[rand() % 5];
+		std::string subspeciesDogs[5] = { "Bulldog", "Siberian Husky", "Doberman", "Rottweiler", "Chihuahua" };
+		subspecies = subspeciesDogs[randGenerator(0, 4)];
 	}
 	else if (type == "Cat")
 	{
-		subspecies = subspeciesCats[rand() % 5];
+		std::string subspeciesCats[5] = { "Persian", "Toyger", "Munchkin", "Angora", "Birman" };
+		subspecies = subspeciesCats[randGenerator(0, 4)];
 	}
 	else if (type == "Rabbit")
 	{
-		subspecies = subspeciesRabbits[rand() % 5];
+		std::string subspeciesRabbits[5] = { "Stain", "Deilenaar", "Fuzzy Lop", "Cottontail", "Rex" };
+		subspecies = subspeciesRabbits[randGenerator(0, 4)];
 	}
 	else if (type == "Bird")
 	{
-		subspecies = subspeciesBirds[rand() % 5];
+		std::string subspeciesBirds[5] = { "Lovebird", "Parakeet", "Owl", "Parrot", "Starling" };
+		subspecies = subspeciesBirds[randGenerator(0, 4)];
 	}
 	else
 	{
@@ -514,13 +440,13 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 
 	// Personality section
 	std::string availablePersonality[4] = { "Aggresive", "Peacefull", "Crazy", "Lazy" };
-	personality = availablePersonality[rand() % 4];
+	personality = availablePersonality[randGenerator(0, 3)];
 
 	// Gender section
-	isMale = rand() % 1;
+	isMale = randGenerator(0, 1);
 
 	// Health condition section
-	isSick = rand() % 1;
+	isSick = randGenerator(0, 1);
 
 	// Age and Speed section
 	int maxSpeed;
@@ -528,33 +454,32 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 
 	if (type == "Dog")
 	{
-		age = rand() % 15;
+		age = randGenerator(0, 15);
 		maxSpeed = 36;
 		minSpeed = 15;
 	}
 	else if (type == "Cat")
 	{
-		age = rand() % 15;
+		age = randGenerator(0, 15);
 		maxSpeed = 30;
 		minSpeed = 18;
 	}
 	else if (type == "Rabbit")
 	{
-		age = rand() % 10;
+		age = randGenerator(0, 10);
 		maxSpeed = 25;
 		minSpeed = 10;
 	}
 	else if (type == "Bird")
 	{
-		age = rand() % 5;
+		age = randGenerator(0, 5);
 		maxSpeed = 40;
 		minSpeed = 20;
 	}
 	else
 	{
 		std::cout << "Error, the type are undifined.\n";
-		maxSpeed = 0;
-		minSpeed = 0;
+		exit(1);
 	}
 
 	// Decrease the speed if the age still under one year or two year
@@ -568,20 +493,16 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 		maxSpeed = 9;
 		minSpeed = 6;
 	}
-	else
-	{
-		int range{ maxSpeed - minSpeed + 1 };
-		speed = rand() % range + minSpeed;
-	}
+	
+	speed = randGenerator(minSpeed, maxSpeed);
 }
 
 void Interface::updateSizeArrays()
 {
-    dogTotal =0;
-    catTotal =0;
-    rabbitTotal =0;
-    birdTotal =0;
-
+    dogTotalDBase = 0;
+    catTotalDBase = 0;
+    rabbitTotalDBase = 0;
+    birdTotalDBase = 0;
 
 	std::ifstream load("AnimalDatabase.bin", std::ios::app);
 
@@ -592,13 +513,13 @@ void Interface::updateSizeArrays()
 			std::string type;
 			getline(load, type);
 			if (type == "Dog")
-				++dogTotal;
+				++dogTotalDBase;
 			else if (type == "Cat")
-				++catTotal;
+				++catTotalDBase;
 			else if (type == "Rabbit")
-				++rabbitTotal;
+				++rabbitTotalDBase;
 			else if (type == "Bird")
-				++birdTotal;
+				++birdTotalDBase;
 		}
 	}
 	else
@@ -648,7 +569,7 @@ void Interface::updateAnimals()
 
 			if (type == "Dog")
 			{
-				if (dogs.size() < dogTotal)
+				if (dogs.size() < dogTotalDBase)
 					dogs.push_back(new Dogs(subspecies, personality, isMale, isSick, age, speed, price));
 				else
 					dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
@@ -656,7 +577,7 @@ void Interface::updateAnimals()
 			}
 			else if (type == "Cat")
 			{
-				if (cats.size() < catTotal)
+				if (cats.size() < catTotalDBase)
 					cats.push_back(new Cats(subspecies, personality, isMale, isSick, age, speed, price));
 				else
 					cats[catIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
@@ -664,7 +585,7 @@ void Interface::updateAnimals()
 			}
 			else if (type == "Rabbit")
 			{
-				if (rabbits.size() < rabbitTotal)
+				if (rabbits.size() < rabbitTotalDBase)
 					rabbits.push_back(new Rabbits(subspecies, personality, isMale, isSick, age, speed, price));
 				else
 					rabbits[rabbitIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
@@ -672,7 +593,7 @@ void Interface::updateAnimals()
 			}
 			else if (type == "Bird")
 			{
-				if (birds.size() < birdTotal)
+				if (birds.size() < birdTotalDBase)
 					birds.push_back(new Birds(subspecies, personality, isMale, isSick, age, speed, price));
 				else
 					birds[birdIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
@@ -692,44 +613,10 @@ void Interface::updateAnimals()
 	}
 }
 
-/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		Unused method, ignore this but don't delete it
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			// If didn't used getline on type, a bug can be occured
-			getline(load, type);
-			getline(load, subspecies);
-			load >> personality;
-			load >> isMale;
-			load >> isSick;
-			load >> age;
-			load >> speed;
-			load >> price;
-			using namespace animalArrays;
-			if (type == "Dog")
-			{
-				if (dogs.size() > dogIndex)
-					dogs[dogIndex]->push_back(new Dogs(subspecies, personality, isMale, isSick, age, speed, price));
-				else
-					dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-				dogIndex++;
-			}
-			else if (type == "Cat")
-			{
-				cats[catIndex].newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-				catIndex++;
-			}
-			else if (type == "Rabbit")
-			{
-				rabbits[rabbitIndex].newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-				rabbitIndex++;
-			}
-			else if (type == "Bird")
-			{
-				birds[birdIndex].newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-				birdIndex++;
-			}
-			else
-			{
-				std::cout << "Something went wrong while refreshing" << std::endl;
-			}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+int randGenerator(int min, int max)
+{
+	std::random_device random;
+	std::mt19937 generator(random());
+	std::uniform_int_distribution<int> distribution(min, max);
+	return distribution(generator);
+}
