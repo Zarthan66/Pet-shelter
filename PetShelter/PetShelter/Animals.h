@@ -101,10 +101,10 @@ private:
 	std::vector<Birds*>birds;
 
 		//Animals were adopted
-    std::vector<Dogs*>dogsAdopted;
-    std::vector<Cats*>catsAdopted;
-    std::vector<Rabbits*>rabbitsAdopted;
-    std::vector<Birds*>birdsAdopted;
+    	std::vector<Dogs*>dogsAdopted;
+    	std::vector<Cats*>catsAdopted;
+   	std::vector<Rabbits*>rabbitsAdopted;
+	std::vector<Birds*>birdsAdopted;
 
 
 
