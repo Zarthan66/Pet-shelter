@@ -99,13 +99,13 @@ private:
 	std::vector<Cats*>cats;
 	std::vector<Rabbits*>rabbits;
 	std::vector<Birds*>birds;
-	/*
+
 		//Animals were adopted
-		std::vector<Dogs>dogsAdopted;
-		std::vector<Cats>catsAdopted;
-		std::vector<Rabbits>rabbitsAdopted;
-		std::vector<Birds>birdsAdopted;
-	*/
+    	std::vector<Dogs*>dogsAdopted;
+    	std::vector<Cats*>catsAdopted;
+   	std::vector<Rabbits*>rabbitsAdopted;
+	std::vector<Birds*>birdsAdopted;
+
 
 
 public:
@@ -113,7 +113,7 @@ public:
     void newAnimals();
 
 	// to Animals adoption by random
-    //void animalsAdoption();
+    void animalsAdoption();
 
 	// check current available animals
     void checkAnimals();
@@ -123,6 +123,7 @@ public:
 
 	// reading database to updating the animals
 	void updateAnimals();
+
 };
 
 // Get an answer from the user and return it as an integer
@@ -131,5 +132,8 @@ int userAnswer();
 // Give some information for the animals automatically
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed);
 
-// Returns a random int that is better than rand 
+// Returns a random int that is better than rand
 int randGenerator(int min, int max);
+
+
+
