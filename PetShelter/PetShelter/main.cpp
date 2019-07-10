@@ -35,8 +35,8 @@ int main()
 			std::cout << "       New Animals       \n";
 			std::cout << "=========================\n";
 			menu.newAnimals();
-			menu.updateSizeArrays();
-			menu.updateAnimals();
+			//menu.updateSizeArrays();
+			//menu.updateAnimals();
 			break;
 		case 2:
 			/*
@@ -53,8 +53,10 @@ int main()
 			std::cout << "=========================\n";
 			std::cout << "      Adopt Animals      \n";
 			std::cout << "=========================\n";
-			//menu.animalsAdoption();
-			std::cout << "Function are not ready!!\n";
+			menu.updateSizeArrays();
+			menu.updateAnimals();
+			menu.animalsAdoption();
+
 			break;
 		case 4:
 			exitProgram = true;
