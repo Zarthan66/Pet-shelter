@@ -100,13 +100,11 @@ private:
 	std::vector<Rabbits*>rabbits;
 	std::vector<Birds*>birds;
 
-		//Animals were adopted
-    	std::vector<Dogs*>dogsAdopted;
-    	std::vector<Cats*>catsAdopted;
+	//Animals were adopted
+    std::vector<Dogs*>dogsAdopted;
+    std::vector<Cats*>catsAdopted;
    	std::vector<Rabbits*>rabbitsAdopted;
 	std::vector<Birds*>birdsAdopted;
-
-
 
 public:
 	// to get new animal
@@ -123,7 +121,6 @@ public:
 
 	// reading database to updating the animals
 	void updateAnimals();
-
 };
 
 // Get an answer from the user and return it as an integer

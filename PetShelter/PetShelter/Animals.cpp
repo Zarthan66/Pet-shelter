@@ -406,6 +406,7 @@ int userAnswer()
 	int answer{ 0 };
 	std::cout << "\nAnswer: ";
 	std::cin >> answer;
+	std::cin.ignore();
 	std::cout << std::endl;
 	return answer;
 }
@@ -425,7 +426,7 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 	}
 	else if (type == "Rabbit")
 	{
-		std::string subspeciesRabbits[5] = { "Stain", "Deilenaar", "Fuzzy Lop", "Cottontail", "Rex" };
+		std::string subspeciesRabbits[5] = { "Satin", "Deilenaar", "Fuzzy Lop", "Cottontail", "Rex" };
 		subspecies = subspeciesRabbits[randGenerator(0, 4)];
 	}
 	else if (type == "Bird")
@@ -629,21 +630,21 @@ void Interface::animalsAdoption()
 	std::cout << "2. See Animals Adopted \n";
 	int answer = userAnswer();
 
+	std::string gender;
+	std::string condition;
+	std::string type{ "Dog" };
+	std::string subspecies{ "Siberian Husky" };
+	std::string personality{ "Peacefull" };
+	bool isMale{ true };
+	bool isSick{ false };
+	int price{ 0 };
+	int age{ 0 };
+	int speed{ 0 };
+
         switch(answer)
         {
             case 1:
             {
-                std::string gender;
-                std::string condition;
-                std::string type{ "Dog" };
-                std::string subspecies{ "Siberian Husky" };
-                std::string personality{ "Peacefull" };
-                bool isMale{ true };
-                bool isSick{ false };
-                int price{ 0 };
-                int age{ 0 };
-                int speed{ 0 };
-
                 std::string tempType{ "Dog" };
                 std::string tempSubspecies{ "Siberian Husky" };
                 std::string tempPersonality{ "Peacefull" };
@@ -759,7 +760,7 @@ void Interface::animalsAdoption()
                         std::cout << tempType;
 
 
-/*
+
                         if (tempType == type && tempSubspecies == subspecies && tempPersonality == personality && tempIsMale == isMale && tempIsSick == isSick && tempAge == age && tempSpeed == speed && tempPrice == price)
                         {
                             save << tempType << "\n";
@@ -782,7 +783,7 @@ void Interface::animalsAdoption()
                             saveAs << tempAge << "\n";
                             saveAs << tempSpeed << "\n";
                             saveAs << tempPrice <<"\n";
-                        }*/
+                        }
 
 
                     }
@@ -799,9 +800,7 @@ void Interface::animalsAdoption()
 
             break;
             }
-            /*
-            case 2:
-
+			case 2:
                 dogTotalDBase = 0;
                 catTotalDBase = 0;
                 rabbitTotalDBase = 0;
@@ -832,18 +831,6 @@ void Interface::animalsAdoption()
                     std::cout << "Something went wrong while updating the animals\n";
                     exit(1);
                 }
-
-
-                std::string gender;
-                std::string condition;
-                std::string type{ "Dog" };
-                std::string subspecies{ "Siberian Husky" };
-                std::string personality{ "Peacefull" };
-                bool isMale{ true };
-                bool isSick{ false };
-                int price{ 0 };
-                int age{ 0 };
-                int speed{ 0 };
 
                 //
                 int totalAnimalDBase{ dogTotalDBase + catTotalDBase + rabbitTotalDBase + birdTotalDBase };
@@ -941,9 +928,7 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-
             break;
-            */
         }
 }
 
