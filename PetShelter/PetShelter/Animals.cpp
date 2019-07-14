@@ -641,6 +641,7 @@ void Interface::animalsAdoption()
                 std::cout << "What kind of animal do you want to adoption: ";
                 int choices = userAnswer();
 
+
                     //untuk menampilkan data animal yang dipilih user
                     if (choices == 1 && dogs.size() > 0)
                     {
@@ -654,7 +655,7 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-                   else if (choices == 2 && cats.size() > 0)
+                    else if (choices == 2 && cats.size() > 0)
                     {
                         std::cout << "Cats :\n";
                         for (size_t i = 0; i < cats.size(); i++)
@@ -665,7 +666,7 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-                   else if (choices == 3 && rabbits.size() > 0)
+                    else if (choices == 3 && rabbits.size() > 0)
                     {
                         std::cout << "Rabbits :\n";
                         for (size_t i = 0; i < rabbits.size(); i++)
@@ -687,20 +688,21 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-		    else
-		    {
-			std::cout << "data not available\n\n";
+                    else
+                    {
+                        std::cout << "data not available\n\n";
                         break;
-		    }
+                    }
 
                     std::cout << "what number of animals will you adopt : " ;
                     int answer = userAnswer();
 
                     //untuk memasukan data hewan yang di adopsi ke adoption.bin , serta menghapus data tersebut dari array anmals
+
                     std::ofstream file;
                     file.open("Adoption.bin", std::ios::app);
-
-                    if(choices == 1 )
+                    // menambahkan syarat answer < .size() agar tdk crash saat user memasukan nomor yang salah
+                    if(choices == 1 && answer < dogs.size())
                     {
                         file << "Dog" <<"\n";
                         file << dogs[answer]->subspecies <<"\n";
@@ -714,7 +716,7 @@ void Interface::animalsAdoption()
                         dogs.erase(dogs.begin() + answer);
 
                     }
-                    if(choices == 2)
+                    else if(choices == 2 && answer < cats.size())
                     {
                         file << "Cat" <<"\n";
                         file << cats[answer]->subspecies <<"\n";
@@ -727,7 +729,7 @@ void Interface::animalsAdoption()
                         file.close();
                         cats.erase(cats.begin() + answer);
                     }
-                    if(choices == 3)
+                    else if(choices == 3 && answer < rabbits.size())
                     {
                         file << "Rabbit" <<"\n";
                         file << rabbits[answer]->subspecies <<"\n";
@@ -740,7 +742,7 @@ void Interface::animalsAdoption()
                         file.close();
                         rabbits.erase(rabbits.begin() + choices);
                     }
-                    if(choices == 4)
+                    else if(choices == 4 && answer < birds.size())
                     {
                         file << "Bird" <<"\n";
                         file << birds[answer]->subspecies <<"\n";
@@ -752,6 +754,11 @@ void Interface::animalsAdoption()
                         file << birds[answer]->price <<"\n";
                         file.close();
                         birds.erase(birds.begin() + answer);
+                    }
+                    else
+                    {
+                        std::cout << "The animal you choose is not available, make sure you choose the appropriate number";
+                        exit(1);
                     }
 
 
@@ -878,10 +885,13 @@ void Interface::animalsAdoption()
                         else
                         {
                             std::cout << "Something went wrong while updating the animals\n";
+                            read.close();
                             exit(1);
                         }
 
                 }
+
+                read.close();
 
 
                     // menampilkan data yang ada di array animal adoption
@@ -889,9 +899,10 @@ void Interface::animalsAdoption()
                     if ( dogsAdopted.size() > 0)
                     {
                         std::cout << "Dogs :\n";
+                        std::cout << "=============================================\n";
                         for (size_t i = 0; i < dogsAdopted.size(); i++)
                         {
-                            std::cout << "=============================================\n";
+                            //std::cout << "=============================================\n";
                             dogsAdopted[i]->printIdentity();
                             std::cout << "\n";
                         }
@@ -1011,5 +1022,3 @@ void Interface::updateDatabase()
         std::cout << "cannot update database";
     }
 }
-
-
