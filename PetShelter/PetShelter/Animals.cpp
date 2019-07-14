@@ -641,112 +641,120 @@ void Interface::animalsAdoption()
                 std::cout << "What kind of animal do you want to adoption: ";
                 int choices = userAnswer();
 
-				//untuk menampilkan data animal yang dipilih user
-				if (choices == 1 && dogs.size() > 0)
-				{
-				    std::cout << "Dogs :\n";
-				    for (size_t i = 0; i < dogs.size(); i++)
-				    {
-				        std::cout << "Information about the Animal number " << i << "\n";
-				        std::cout << "=============================================\n";
-				        dogs[i]->printIdentity();
-				        std::cout << "\n";
-				    }
-				}
-				if (choices == 2 && cats.size() > 0)
-				{
-				    std::cout << "Cats :\n";
-				    for (size_t i = 0; i < cats.size(); i++)
-				    {
-				        std::cout << "Information about the Animal number " << i << "\n";
-				        std::cout << "=============================================\n";
-				        cats[i]->printIdentity();
-				        std::cout << "\n";
-				    }
-				}
-				if (choices == 3 && rabbits.size() > 0)
-				{
-				    std::cout << "Rabbits :\n";
-				    for (size_t i = 0; i < rabbits.size(); i++)
-				    {
-				        std::cout << "Information about the Animal number " << i << "\n";
-				        std::cout << "=============================================\n";
-				        rabbits[i]->printIdentity();
-				        std::cout << "\n";
-				    }
-				}
-				if (choices == 4 && birds.size() > 0)
-				{
-				    std::cout << "Birds :\n";
-				    for (size_t i = 0; i < birds.size(); i++)
-				    {
-				        std::cout << "Information about the Animal number " << i << "\n";
-				        std::cout << "=============================================\n";
-				        birds[i]->printIdentity();
-				        std::cout << "\n";
-				    }
-				}
+                    //untuk menampilkan data animal yang dipilih user
+                    if (choices == 1 && dogs.size() > 0)
+                    {
+                        std::cout << "Dogs :\n";
+                        for (size_t i = 0; i < dogs.size(); i++)
+                        {
 
-				std::cout << "what number of animals will you adopt : " ;
-				int answer = userAnswer();
+                            std::cout << "Information about the Animal number " << i << "\n";
+                            std::cout << "=============================================\n";
+                            dogs[i]->printIdentity();
+                            std::cout << "\n";
+                        }
+                    }
+                   else if (choices == 2 && cats.size() > 0)
+                    {
+                        std::cout << "Cats :\n";
+                        for (size_t i = 0; i < cats.size(); i++)
+                        {
+                            std::cout << "Information about the Animal number " << i << "\n";
+                            std::cout << "=============================================\n";
+                            cats[i]->printIdentity();
+                            std::cout << "\n";
+                        }
+                    }
+                   else if (choices == 3 && rabbits.size() > 0)
+                    {
+                        std::cout << "Rabbits :\n";
+                        for (size_t i = 0; i < rabbits.size(); i++)
+                        {
+                            std::cout << "Information about the Animal number " << i << "\n";
+                            std::cout << "=============================================\n";
+                            rabbits[i]->printIdentity();
+                            std::cout << "\n";
+                        }
+                    }
+                   else if (choices == 4 && birds.size() > 0)
+                    {
+                        std::cout << "Birds :\n";
+                        for (size_t i = 0; i < birds.size(); i++)
+                        {
+                            std::cout << "Information about the Animal number " << i << "\n";
+                            std::cout << "=============================================\n";
+                            birds[i]->printIdentity();
+                            std::cout << "\n";
+                        }
+                    }
+		    else
+		    {
+			std::cout << "data not available\n\n";
+                        break;
+		    }
 
-				//untuk memasukan data hewan yang di adopsi ke adoption.bin , serta menghapus data tersebut dari array anmals
-				std::ofstream file;
-				file.open("Adoption.bin", std::ios::app);
+                    std::cout << "what number of animals will you adopt : " ;
+                    int answer = userAnswer();
 
-				if(choices == 1 )
-				{
-				    file << "Dog" <<"\n";
-				    file << dogs[answer]->subspecies <<"\n";
-				    file << dogs[answer]->personality <<"\n";
-				    file << dogs[answer]->isMale <<"\n";
-				    file << dogs[answer]->isSick <<"\n";
-				    file << dogs[answer]->age <<"\n";
-				    file << dogs[answer]->speed <<"\n";
-				    file << dogs[answer]->price <<"\n";
-				    file.close();
-				    dogs.erase(dogs.begin() + answer);
+                    //untuk memasukan data hewan yang di adopsi ke adoption.bin , serta menghapus data tersebut dari array anmals
+                    std::ofstream file;
+                    file.open("Adoption.bin", std::ios::app);
 
-				}
-				if(choices == 2)
-				{
-				    file << "Cat" <<"\n";
-				    file << cats[answer]->subspecies <<"\n";
-				    file << cats[answer]->personality <<"\n";
-				    file << cats[answer]->isMale <<"\n";
-				    file << cats[answer]->isSick <<"\n";
-				    file << cats[answer]->age <<"\n";
-				    file << cats[answer]->speed <<"\n";
-				    file << cats[answer]->price <<"\n";
-				    file.close();
-				    cats.erase(cats.begin() + answer);
-				}
-				if(choices == 3)
-				{
-				    file << "Rabbit" <<"\n";
-				    file << rabbits[answer]->subspecies <<"\n";
-				    file << rabbits[answer]->personality <<"\n";
-				    file << rabbits[answer]->isMale <<"\n";
-				    file << rabbits[answer]->isSick <<"\n";
-				    file << rabbits[answer]->age <<"\n";
-				    file << rabbits[answer]->speed <<"\n";
-				    file << rabbits[answer]->price <<"\n";
-				    file.close();
-				    rabbits.erase(rabbits.begin() + choices);
-				}
-				if(choices == 4)
-				{
-				    file << "Bird" <<"\n";
-				    file << birds[answer]->subspecies <<"\n";
-				    file << birds[answer]->personality <<"\n";
-				    file << birds[answer]->isMale <<"\n";
-				    file << birds[answer]->isSick <<"\n";
-				    file << birds[answer]->age <<"\n";
-				    file << birds[answer]->speed <<"\n";
-				    file << birds[answer]->price <<"\n";
-				    file.close();
-				    birds.erase(birds.begin() + answer);
-				}
+                    if(choices == 1 )
+                    {
+                        file << "Dog" <<"\n";
+                        file << dogs[answer]->subspecies <<"\n";
+                        file << dogs[answer]->personality <<"\n";
+                        file << dogs[answer]->isMale <<"\n";
+                        file << dogs[answer]->isSick <<"\n";
+                        file << dogs[answer]->age <<"\n";
+                        file << dogs[answer]->speed <<"\n";
+                        file << dogs[answer]->price <<"\n";
+                        file.close();
+                        dogs.erase(dogs.begin() + answer);
+
+                    }
+                    if(choices == 2)
+                    {
+                        file << "Cat" <<"\n";
+                        file << cats[answer]->subspecies <<"\n";
+                        file << cats[answer]->personality <<"\n";
+                        file << cats[answer]->isMale <<"\n";
+                        file << cats[answer]->isSick <<"\n";
+                        file << cats[answer]->age <<"\n";
+                        file << cats[answer]->speed <<"\n";
+                        file << cats[answer]->price <<"\n";
+                        file.close();
+                        cats.erase(cats.begin() + answer);
+                    }
+                    if(choices == 3)
+                    {
+                        file << "Rabbit" <<"\n";
+                        file << rabbits[answer]->subspecies <<"\n";
+                        file << rabbits[answer]->personality <<"\n";
+                        file << rabbits[answer]->isMale <<"\n";
+                        file << rabbits[answer]->isSick <<"\n";
+                        file << rabbits[answer]->age <<"\n";
+                        file << rabbits[answer]->speed <<"\n";
+                        file << rabbits[answer]->price <<"\n";
+                        file.close();
+                        rabbits.erase(rabbits.begin() + choices);
+                    }
+                    if(choices == 4)
+                    {
+                        file << "Bird" <<"\n";
+                        file << birds[answer]->subspecies <<"\n";
+                        file << birds[answer]->personality <<"\n";
+                        file << birds[answer]->isMale <<"\n";
+                        file << birds[answer]->isSick <<"\n";
+                        file << birds[answer]->age <<"\n";
+                        file << birds[answer]->speed <<"\n";
+                        file << birds[answer]->price <<"\n";
+                        file.close();
+                        birds.erase(birds.begin() + answer);
+                    }
+
+
 
                 //untuk update database animals setelah di update
                 updateDatabase();
@@ -931,67 +939,72 @@ void Interface::updateDatabase()
 
     if (update.is_open())
     {
-		if (dogs.size() > 0)
-		{
-			for (size_t i = 0; i < dogs.size(); i++)
-			{
-				update << "Dog" <<"\n";
-				update << dogs[i]->subspecies <<"\n";
-				update << dogs[i]->personality <<"\n";
-			    update << dogs[i]->isMale <<"\n";
-			   	update << dogs[i]->isSick <<"\n";
-				update << dogs[i]->age <<"\n";
-				update << dogs[i]->speed <<"\n";
-				update << dogs[i]->price <<"\n";
-			}
-		}
+                    if (dogs.size() > 0)
+                    {
+                        for (size_t i = 0; i < dogs.size(); i++)
+                        {
+                        	update << "Dog" <<"\n";
+                        	update << dogs[i]->subspecies <<"\n";
+                        	update << dogs[i]->personality <<"\n";
+                       	 	update << dogs[i]->isMale <<"\n";
+                       		update << dogs[i]->isSick <<"\n";
+                        	update << dogs[i]->age <<"\n";
+                        	update << dogs[i]->speed <<"\n";
+                        	update << dogs[i]->price <<"\n";
 
-		if (cats.size() > 0)
-		{
-		    for (size_t i = 0; i < cats.size(); i++)
-		    {
-		    	update << "Cat" <<"\n";
-		    	update << cats[i]->subspecies <<"\n";
-		   	 	update << cats[i]->personality <<"\n";
-		   		update << cats[i]->isMale <<"\n";
-		    	update << cats[i]->isSick <<"\n";
-		    	update << cats[i]->age <<"\n";
-		    	update << cats[i]->speed <<"\n";
-		    	update << cats[i]->price <<"\n";
-		    }
-		}
 
-		if (rabbits.size() > 0)
-		{
-		    for (size_t i = 0; i < rabbits.size(); i++)
-		    {
-		    	update << "Rabbit" <<"\n";
-		    	update << rabbits[i]->subspecies <<"\n";
-		    	update << rabbits[i]->personality <<"\n";
-		    	update << rabbits[i]->isMale <<"\n";
-		    	update << rabbits[i]->isSick <<"\n";
-		   	 	update << rabbits[i]->age <<"\n";
-		    	update << rabbits[i]->speed <<"\n";
-		    	update << rabbits[i]->price <<"\n";
+                        }
+                    }
 
-		    }
-		}
-		if (birds.size() > 0)
-		{
-		    for (size_t i = 0; i < birds.size(); i++)
-		    {
-		    	update << "Bird" <<"\n";
-		    	update << birds[i]->subspecies <<"\n";
-		   	 	update << birds[i]->personality <<"\n";
-		    	update << birds[i]->isMale <<"\n";
-		    	update << birds[i]->isSick <<"\n";
-		    	update << birds[i]->age <<"\n";
-		    	update << birds[i]->speed <<"\n";
-		    	update << birds[i]->price <<"\n";
-		    }
-		}
+                    if (cats.size() > 0)
+                    {
+                        for (size_t i = 0; i < cats.size(); i++)
+                        {
+                        	update << "Cat" <<"\n";
+                        	update << cats[i]->subspecies <<"\n";
+                       	 	update << cats[i]->personality <<"\n";
+                       		update << cats[i]->isMale <<"\n";
+                        	update << cats[i]->isSick <<"\n";
+                        	update << cats[i]->age <<"\n";
+                        	update << cats[i]->speed <<"\n";
+                        	update << cats[i]->price <<"\n";
 
-		update.close();
+                        }
+                    }
+
+                    if (rabbits.size() > 0)
+                    {
+                        for (size_t i = 0; i < rabbits.size(); i++)
+                        {
+                        	update << "Rabbit" <<"\n";
+                        	update << rabbits[i]->subspecies <<"\n";
+                        	update << rabbits[i]->personality <<"\n";
+                        	update << rabbits[i]->isMale <<"\n";
+                        	update << rabbits[i]->isSick <<"\n";
+                       	 	update << rabbits[i]->age <<"\n";
+                        	update << rabbits[i]->speed <<"\n";
+                        	update << rabbits[i]->price <<"\n";
+
+                        }
+                    }
+                    if ( birds.size() > 0)
+                    {
+                        for (size_t i = 0; i < birds.size(); i++)
+                        {
+                        	update << "Bird" <<"\n";
+                        	update << birds[i]->subspecies <<"\n";
+                       	 	update << birds[i]->personality <<"\n";
+                        	update << birds[i]->isMale <<"\n";
+                        	update << birds[i]->isSick <<"\n";
+                        	update << birds[i]->age <<"\n";
+                        	update << birds[i]->speed <<"\n";
+                        	update << birds[i]->price <<"\n";
+
+                        }
+                    }
+
+                    update.close();
+
     }
     else
     {
