@@ -654,7 +654,7 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-                    if (choices == 2 && cats.size() > 0)
+                   else if (choices == 2 && cats.size() > 0)
                     {
                         std::cout << "Cats :\n";
                         for (size_t i = 0; i < cats.size(); i++)
@@ -665,7 +665,7 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-                    if (choices == 3 && rabbits.size() > 0)
+                   else if (choices == 3 && rabbits.size() > 0)
                     {
                         std::cout << "Rabbits :\n";
                         for (size_t i = 0; i < rabbits.size(); i++)
@@ -676,7 +676,7 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-                    if (choices == 4 && birds.size() > 0)
+                   else if (choices == 4 && birds.size() > 0)
                     {
                         std::cout << "Birds :\n";
                         for (size_t i = 0; i < birds.size(); i++)
@@ -687,6 +687,11 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
+		    else
+		    {
+			std::cout << "data not available\n\n";
+                        break;
+		    }
 
                     std::cout << "what number of animals will you adopt : " ;
                     int answer = userAnswer();
