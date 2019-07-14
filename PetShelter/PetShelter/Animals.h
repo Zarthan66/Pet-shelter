@@ -103,10 +103,10 @@ private:
 	std::vector<Birds*>birds;
 
 	//Animals were adopted
-    	std::vector<Dogs*>dogsAdopted;
-    	std::vector<Cats*>catsAdopted;
-    	std::vector<Rabbits*>rabbitsAdopted;
-    	std::vector<Birds*>birdsAdopted;
+   	std::vector<Dogs*>dogsAdopted;
+   	std::vector<Cats*>catsAdopted;
+    std::vector<Rabbits*>rabbitsAdopted;
+    std::vector<Birds*>birdsAdopted;
 
 
 
@@ -118,7 +118,7 @@ public:
     void animalsAdoption();
 
 	// check current available animals
-    	void checkAnimals();
+    void checkAnimals();
 
 	// count every animal type on AnimalDatabase.bin to update the size of animal arrays
 	void updateSizeArrays();

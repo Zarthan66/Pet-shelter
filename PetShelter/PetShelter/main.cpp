@@ -56,7 +56,6 @@ int main()
 			menu.updateSizeArrays();
 			menu.updateAnimals();
 			menu.animalsAdoption();
-
 			break;
 		case 4:
 			exitProgram = true;
