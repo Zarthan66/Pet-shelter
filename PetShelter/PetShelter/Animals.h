@@ -22,6 +22,8 @@ public:
 	virtual void speak() = 0;
 	// Get new information about the animals
 	void newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price);
+
+	friend class Interface;
 };
 
 struct Dogs : public Animals
@@ -101,10 +103,10 @@ private:
 	std::vector<Birds*>birds;
 
 	//Animals were adopted
-    std::vector<Dogs*>dogsAdopted;
-    std::vector<Cats*>catsAdopted;
-   	std::vector<Rabbits*>rabbitsAdopted;
-	std::vector<Birds*>birdsAdopted;
+    	std::vector<Dogs*>dogsAdopted;
+    	std::vector<Cats*>catsAdopted;
+    	std::vector<Rabbits*>rabbitsAdopted;
+    	std::vector<Birds*>birdsAdopted;
 
 
 
@@ -116,13 +118,16 @@ public:
     void animalsAdoption();
 
 	// check current available animals
-    void checkAnimals();
+    	void checkAnimals();
 
 	// count every animal type on AnimalDatabase.bin to update the size of animal arrays
 	void updateSizeArrays();
 
 	// reading database to updating the animals
 	void updateAnimals();
+
+	// update database animals after adopted
+	void updateDatabase();
 
 };
 
@@ -134,6 +139,5 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 
 // Returns a random int that is better than rand
 int randGenerator(int min, int max);
-
 
 

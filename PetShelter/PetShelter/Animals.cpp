@@ -630,43 +630,25 @@ void Interface::animalsAdoption()
 	std::cout << "2. See Animals Adopted \n";
 	int answer = userAnswer();
 
-	std::string gender;
-	std::string condition;
-	std::string type{ "Dog" };
-	std::string subspecies{ "Siberian Husky" };
-	std::string personality{ "Peacefull" };
-	bool isMale{ true };
-	bool isSick{ false };
-	int price{ 0 };
-	int age{ 0 };
-	int speed{ 0 };
-
         switch(answer)
         {
             case 1:
             {
-                std::string tempType{ "Dog" };
-                std::string tempSubspecies{ "Siberian Husky" };
-                std::string tempPersonality{ "Peacefull" };
-                bool tempIsMale{ true };
-                bool tempIsSick{ false };
-                int tempPrice{ 0 };
-                int tempAge{ 0 };
-                int tempSpeed{ 0 };
-
                 std::cout << "1. Dog\n";
                 std::cout << "2. Cat\n";
                 std::cout << "3. Rabbit\n";
                 std::cout << "4. Bird\n\n";
                 std::cout << "What kind of animal do you want to adoption: ";
                 int choices = userAnswer();
-                std::cin.ignore();
+
+                    //untuk menampilkan data animal yang dipilih user
                     if (choices == 1 && dogs.size() > 0)
                     {
-                        type = "Dog";
                         std::cout << "Dogs :\n";
                         for (size_t i = 0; i < dogs.size(); i++)
                         {
+
+                            std::cout << "Information about the Animal number " << i << "\n";
                             std::cout << "=============================================\n";
                             dogs[i]->printIdentity();
                             std::cout << "\n";
@@ -674,10 +656,10 @@ void Interface::animalsAdoption()
                     }
                     if (choices == 2 && cats.size() > 0)
                     {
-                        type = "Cat";
                         std::cout << "Cats :\n";
                         for (size_t i = 0; i < cats.size(); i++)
                         {
+                            std::cout << "Information about the Animal number " << i << "\n";
                             std::cout << "=============================================\n";
                             cats[i]->printIdentity();
                             std::cout << "\n";
@@ -685,10 +667,10 @@ void Interface::animalsAdoption()
                     }
                     if (choices == 3 && rabbits.size() > 0)
                     {
-                        type = "Rabbit";
                         std::cout << "Rabbits :\n";
                         for (size_t i = 0; i < rabbits.size(); i++)
                         {
+                            std::cout << "Information about the Animal number " << i << "\n";
                             std::cout << "=============================================\n";
                             rabbits[i]->printIdentity();
                             std::cout << "\n";
@@ -696,117 +678,98 @@ void Interface::animalsAdoption()
                     }
                     if (choices == 4 && birds.size() > 0)
                     {
-                        type = "Bird";
                         std::cout << "Birds :\n";
                         for (size_t i = 0; i < birds.size(); i++)
                         {
+                            std::cout << "Information about the Animal number " << i << "\n";
                             std::cout << "=============================================\n";
                             birds[i]->printIdentity();
                             std::cout << "\n";
                         }
                     }
-//std::cout << "What kind of animals you want to adopt" ;
-//int answerUser = userAnswer();
 
-                std::cout <<"Subspecies\t: ";
-                getline(std::cin, subspecies);
-                std::cout << "Stats\t\t: ";
-                getline(std::cin, personality);
-                std::cout << "Age\t\t: ";
-                std::cin >> age;
-                std::cout << "Gender\t\t: ";
-                std::cin >> gender;
-                 gender == "Male" ?
-                isMale = true :
-                isMale = false;
-                std::cout << "Condition\t: ";
-                std::cin >> condition;
-                condition == "Sick"?
-                isSick = true :
-                isSick = false;
-                std::cout << "Speed\t\t: ";
-                std::cin >> speed;
-                std::cout << "Price\t\t: ";
-                std::cin >> price;
+                    std::cout << "what number of animals will you adopt : " ;
+                    int answer = userAnswer();
 
-               // std::cout << tempType<<type << tempSubspecies<<subspecies ;
+                    //untuk memasukan data hewan yang di adopsi ke adoption.bin , serta menghapus data tersebut dari array anmals
+                    std::ofstream file;
+                    file.open("Adoption.bin", std::ios::app);
 
-
-                std::ifstream read("AnimalDatabase.bin");
-                std::ofstream saveAs("Temp.bin", std::ios::app);
-                std::ofstream save("AdoptionDatabase.bin", std::ios::app);
-
-
-
-                if (read.is_open())
-                {
-                   while (read)
+                    if(choices == 1 )
                     {
-
-
-                        getline(read, tempType);
-
-                        // Skip every blank input to avoid a bug
-                        //if (type == "")
-                        //continue;
-
-                        getline(read, tempSubspecies);
-                        getline(read, tempPersonality);
-                        read >> tempIsMale;
-                        read >> tempIsSick;
-                        read >> tempAge;
-                        read >> tempSpeed;
-                        read >> tempPrice;
-                        std::cout << tempType;
-
-
-
-                        if (tempType == type && tempSubspecies == subspecies && tempPersonality == personality && tempIsMale == isMale && tempIsSick == isSick && tempAge == age && tempSpeed == speed && tempPrice == price)
-                        {
-                            save << tempType << "\n";
-                            save << tempSubspecies << "\n";
-                            save << tempPersonality << "\n";
-                            save << tempIsMale << "\n";
-                            save << tempIsSick << "\n";
-                            save << tempAge << "\n";
-                            save << tempSpeed << "\n";
-                            save << tempPrice <<"\n";
-                        }
-                        else
-                        {
-                            saveAs << tempType << "\n";
-                            std::cout << tempPersonality;
-                            saveAs << tempSubspecies << "\n";
-                            saveAs << tempPersonality << "\n";
-                            saveAs << tempIsMale << "\n";
-                            saveAs << tempIsSick << "\n";
-                            saveAs << tempAge << "\n";
-                            saveAs << tempSpeed << "\n";
-                            saveAs << tempPrice <<"\n";
-                        }
-
+                        file << "Dog" <<"\n";
+                        file << dogs[answer]->subspecies <<"\n";
+                        file << dogs[answer]->personality <<"\n";
+                        file << dogs[answer]->isMale <<"\n";
+                        file << dogs[answer]->isSick <<"\n";
+                        file << dogs[answer]->age <<"\n";
+                        file << dogs[answer]->speed <<"\n";
+                        file << dogs[answer]->price <<"\n";
+                        file.close();
+                        dogs.erase(dogs.begin() + answer);
 
                     }
-                    save.close();
-                    saveAs.close();
-                    read.close();
-                    //remove("AnimalDatabase.bin");
-                   // rename("Temp.bin","AnimalDatabase.bin");
-                }
-                else
-                {
-                    std::cout << "Cannot Open Data Base ";
-                }
+                    if(choices == 2)
+                    {
+                        file << "Cat" <<"\n";
+                        file << cats[answer]->subspecies <<"\n";
+                        file << cats[answer]->personality <<"\n";
+                        file << cats[answer]->isMale <<"\n";
+                        file << cats[answer]->isSick <<"\n";
+                        file << cats[answer]->age <<"\n";
+                        file << cats[answer]->speed <<"\n";
+                        file << cats[answer]->price <<"\n";
+                        file.close();
+                        cats.erase(cats.begin() + answer);
+                    }
+                    if(choices == 3)
+                    {
+                        file << "Rabbit" <<"\n";
+                        file << rabbits[answer]->subspecies <<"\n";
+                        file << rabbits[answer]->personality <<"\n";
+                        file << rabbits[answer]->isMale <<"\n";
+                        file << rabbits[answer]->isSick <<"\n";
+                        file << rabbits[answer]->age <<"\n";
+                        file << rabbits[answer]->speed <<"\n";
+                        file << rabbits[answer]->price <<"\n";
+                        file.close();
+                        rabbits.erase(rabbits.begin() + choices);
+                    }
+                    if(choices == 4)
+                    {
+                        file << "Bird" <<"\n";
+                        file << birds[answer]->subspecies <<"\n";
+                        file << birds[answer]->personality <<"\n";
+                        file << birds[answer]->isMale <<"\n";
+                        file << birds[answer]->isSick <<"\n";
+                        file << birds[answer]->age <<"\n";
+                        file << birds[answer]->speed <<"\n";
+                        file << birds[answer]->price <<"\n";
+                        file.close();
+                        birds.erase(birds.begin() + answer);
+                    }
+
+
+
+                //untuk update database animals setelah di update
+                updateDatabase();
 
             break;
             }
-			case 2:
+            case 2:
+
                 dogTotalDBase = 0;
                 catTotalDBase = 0;
                 rabbitTotalDBase = 0;
                 birdTotalDBase = 0;
 
-                std::ifstream read("AdoptionDatabase.bin");
+                int dogIndex{ 0 };
+                int catIndex{ 0 };
+                int rabbitIndex{ 0 };
+                int birdIndex{ 0 };
+
+                std::ifstream read;
+                read.open("Adoption.bin");
 
                 if (read.is_open())
                 {
@@ -814,79 +777,109 @@ void Interface::animalsAdoption()
                     {
                         std::string type;
                         getline(read, type);
+
                         if (type == "")
                         continue;
+
+
                         if (type == "Dog")
-                        ++dogTotalDBase;
+                            ++dogTotalDBase;
                         else if (type == "Cat")
-                        ++catTotalDBase;
+                            ++catTotalDBase;
                         else if (type == "Rabbit")
-                        ++rabbitTotalDBase;
+                            ++rabbitTotalDBase;
                         else if (type == "Bird")
-                        ++birdTotalDBase;
+                            ++birdTotalDBase;
                     }
+                    read.close();
                 }
                 else
                 {
-                    std::cout << "Something went wrong while updating the animals\n";
+                    std::cout << "sSomething went wrong while updating the animals\n";
                     exit(1);
                 }
 
-                //
-                int totalAnimalDBase{ dogTotalDBase + catTotalDBase + rabbitTotalDBase + birdTotalDBase };
-                while(read)
+                //variable untuk mnampung sementara data dari adoption.bin
+                std::string gender;
+                std::string condition;
+                std::string type{ "Dog" };
+                std::string subspecies{ "Siberian Husky" };
+                std::string personality{ "Peacefull" };
+                bool isMale{ true };
+                bool isSick{ false };
+                int price{ 0 };
+                int age{ 0 };
+                int speed{ 0 };
 
+                //
+                read.open("Adoption.bin");
+
+                int totalAnimalDBase{ dogTotalDBase + catTotalDBase + rabbitTotalDBase + birdTotalDBase };
+                // memasukan data yang ada di adoption.bin ke dalam array animal adoption
+                while(read)
+                {
                     getline(read, type);
+
+                    if (type == "")
+                        continue;
+
+
                     getline(read,subspecies);
                     getline(read, personality);
                     read >> isMale ;
                     read >> isSick ;
                     read >> age ;
                     read >> speed ;
-                    read  >> price;
-                {
+                    read >> price;
+
+
 
                         if (type == "Dog")
                         {
-                            if (dogs.size() < dogTotalDBase)
-                            dogsAdopted.push_back(new Dogs(subspecies, personality, isMale, isSick, age, speed, price));
-                            //else
-                            //dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-                            //dogIndex++;
+                            if (dogsAdopted.size() < dogTotalDBase)
+
+                                dogsAdopted.push_back(new Dogs(subspecies, personality, isMale, isSick, age, speed, price));
+                            else
+
+                                dogsAdopted[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+                                dogIndex++;
+
                         }
+
                         else if (type == "Cat")
                         {
-                            if (cats.size() < catTotalDBase)
-                            catsAdopted.push_back(new Cats(subspecies, personality, isMale, isSick, age, speed, price));
-                            //else
-                            //cats[catIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-                            //catIndex++;
+                            if (catsAdopted.size() < catTotalDBase)
+                                catsAdopted.push_back(new Cats(subspecies, personality, isMale, isSick, age, speed, price));
+                            else
+                                catsAdopted[catIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+                                catIndex++;
                         }
                         else if (type == "Rabbit")
                         {
-                            if (rabbits.size() < rabbitTotalDBase)
-                            rabbitsAdopted.push_back(new Rabbits(subspecies, personality, isMale, isSick, age, speed, price));
-                            //else
-                            //rabbits[rabbitIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-                            //rabbitIndex++;
+                            if (rabbitsAdopted.size() < rabbitTotalDBase)
+                                rabbitsAdopted.push_back(new Rabbits(subspecies, personality, isMale, isSick, age, speed, price));
+                            else
+                                rabbitsAdopted[rabbitIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+                                rabbitIndex++;
                         }
                         else if (type == "Bird")
                         {
-                            if (birds.size() < birdTotalDBase)
-                            birdsAdopted.push_back(new Birds(subspecies, personality, isMale, isSick, age, speed, price));
-                            //else
-                            //birds[birdIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-                            //birdIndex++;
+                            if (birdsAdopted.size() < birdTotalDBase)
+                                birdsAdopted.push_back(new Birds(subspecies, personality, isMale, isSick, age, speed, price));
+                           else
+                                birdsAdopted[birdIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+                                birdIndex++;
                         }
                         else
                         {
                             std::cout << "Something went wrong while updating the animals\n";
                             exit(1);
                         }
+
                 }
 
 
-
+                    // menampilkan data yang ada di array animal adoption
 
                     if ( dogsAdopted.size() > 0)
                     {
@@ -928,9 +921,90 @@ void Interface::animalsAdoption()
                             std::cout << "\n";
                         }
                     }
-            break;
+
+
         }
 }
 
+
+void Interface::updateDatabase()
+{
+    std::ofstream update;
+    update.open("AnimalDatabase.bin");
+
+    if (update.is_open())
+    {
+                    if (dogs.size() > 0)
+                    {
+                        for (size_t i = 0; i < dogs.size(); i++)
+                        {
+                        	update << "Dog" <<"\n";
+                        	update << dogs[i]->subspecies <<"\n";
+                        	update << dogs[i]->personality <<"\n";
+                       	 	update << dogs[i]->isMale <<"\n";
+                       		update << dogs[i]->isSick <<"\n";
+                        	update << dogs[i]->age <<"\n";
+                        	update << dogs[i]->speed <<"\n";
+                        	update << dogs[i]->price <<"\n";
+
+
+                        }
+                    }
+
+                    if (cats.size() > 0)
+                    {
+                        for (size_t i = 0; i < cats.size(); i++)
+                        {
+                        	update << "Cat" <<"\n";
+                        	update << cats[i]->subspecies <<"\n";
+                       	 	update << cats[i]->personality <<"\n";
+                       		update << cats[i]->isMale <<"\n";
+                        	update << cats[i]->isSick <<"\n";
+                        	update << cats[i]->age <<"\n";
+                        	update << cats[i]->speed <<"\n";
+                        	update << cats[i]->price <<"\n";
+
+                        }
+                    }
+
+                    if (rabbits.size() > 0)
+                    {
+                        for (size_t i = 0; i < rabbits.size(); i++)
+                        {
+                        	update << "Rabbit" <<"\n";
+                        	update << rabbits[i]->subspecies <<"\n";
+                        	update << rabbits[i]->personality <<"\n";
+                        	update << rabbits[i]->isMale <<"\n";
+                        	update << rabbits[i]->isSick <<"\n";
+                       	 	update << rabbits[i]->age <<"\n";
+                        	update << rabbits[i]->speed <<"\n";
+                        	update << rabbits[i]->price <<"\n";
+
+                        }
+                    }
+                    if ( birds.size() > 0)
+                    {
+                        for (size_t i = 0; i < birds.size(); i++)
+                        {
+                        	update << "Bird" <<"\n";
+                        	update << birds[i]->subspecies <<"\n";
+                       	 	update << birds[i]->personality <<"\n";
+                        	update << birds[i]->isMale <<"\n";
+                        	update << birds[i]->isSick <<"\n";
+                        	update << birds[i]->age <<"\n";
+                        	update << birds[i]->speed <<"\n";
+                        	update << birds[i]->price <<"\n";
+
+                        }
+                    }
+
+                    update.close();
+
+    }
+    else
+    {
+        std::cout << "cannot update database";
+    }
+}
 
 
