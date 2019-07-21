@@ -4,15 +4,16 @@
 #include <string>
 #include "Animals.h"
 
+//	Bugs, duplicate information when assign the animal arrays from the database (At Adoption Function)
 
 int main()
 {
-	// To avoid the object get the same emotion
 	srand(time(NULL));
 	Interface menu;
 
-	// Initialize the arrays size
+	// Keep the animals syncronized with the database
 	menu.updateSizeArrays();
+	menu.updateAnimals();
 
 	bool exitProgram{ false };
 	while (exitProgram == false)
@@ -21,7 +22,7 @@ int main()
 		std::cout << "=========================\n";
 		std::cout << "       Pet Shelter       \n";
 		std::cout << "=========================\n";
-		std::cout << "1. New Animals\n";
+		std::cout << "1. Get new Animals\n";
 		std::cout << "2. Check Available Animals\n";
 		std::cout << "3. Adopt Animals\n";
 		std::cout << "4. Exit\n";
@@ -31,31 +32,17 @@ int main()
 		switch (choice)
 		{
 		case 1:
-			std::cout << "=========================\n";
-			std::cout << "       New Animals       \n";
-			std::cout << "=========================\n";
 			menu.newAnimals();
-			//menu.updateSizeArrays();
-			//menu.updateAnimals();
-			break;
-		case 2:
-			/*
-				Bugs will appear when the arrays are empty
-			*/
-			std::cout << "=========================\n";
-			std::cout << " Check Available Animals \n";
-			std::cout << "=========================\n";
 			menu.updateSizeArrays();
 			menu.updateAnimals();
+			break;
+		case 2:
 			menu.checkAnimals();
 			break;
 		case 3:
-			std::cout << "=========================\n";
-			std::cout << "      Adopt Animals      \n";
-			std::cout << "=========================\n";
+			menu.animalsAdoption();
 			menu.updateSizeArrays();
 			menu.updateAnimals();
-			menu.animalsAdoption();
 			break;
 		case 4:
 			exitProgram = true;

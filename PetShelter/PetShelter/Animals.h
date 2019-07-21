@@ -2,18 +2,24 @@
 #include <iostream>
 #include <vector>
 
+// Available animal types for this program
+namespace types
+{
+	const std::string Dog{ "Dog" }, Cat{ "Cat" }, Rabbit{ "Rabbit" }, Bird{ "Bird" };
+}
+
 // A simple class for all animals
 struct Animals
 {
 protected:
-	bool adopted;
-	bool isMale;
-	bool isSick;
-	int price; // USD
-	int age; // in month
-	int speed; // mph
+	std::string type;
 	std::string subspecies;
 	std::string personality;
+	bool isMale;
+	bool isSick;
+	int age; // in month
+	int speed; // mph
+	int price; // USD
 
 public:
 	// Print the details about the animals, included their condition and information
@@ -22,8 +28,8 @@ public:
 	virtual void speak() = 0;
 	// Get new information about the animals
 	void newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price);
-
-	friend class Interface;
+	// Assign the animal to the database
+	void assignToDatabase();
 };
 
 struct Dogs : public Animals
@@ -31,6 +37,7 @@ struct Dogs : public Animals
 public:
 	Dogs(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
+		this->type = types::Dog;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -46,6 +53,7 @@ struct Cats : public Animals
 {
 	Cats(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
+		this->type = types::Cat;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -61,6 +69,7 @@ struct Rabbits : public Animals
 {
 	Rabbits(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
+		this->type = types::Rabbit;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -76,6 +85,7 @@ struct Birds : public Animals
 {
 	Birds(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
+		this->type = types::Bird;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -97,24 +107,16 @@ private:
 	int birdTotalDBase;
 
 	// animals available to adopted
-	std::vector<Dogs*>dogs;
-	std::vector<Cats*>cats;
-	std::vector<Rabbits*>rabbits;
-	std::vector<Birds*>birds;
-
-	//Animals were adopted
-   	std::vector<Dogs*>dogsAdopted;
-   	std::vector<Cats*>catsAdopted;
-    std::vector<Rabbits*>rabbitsAdopted;
-    std::vector<Birds*>birdsAdopted;
-
-
+	std::vector<std::unique_ptr<Dogs>>dogs;
+	std::vector<std::unique_ptr<Cats>>cats;
+	std::vector<std::unique_ptr<Rabbits>>rabbits;
+	std::vector<std::unique_ptr<Birds>>birds;
 
 public:
-	// to get new animal
+	// create an animal and add it to the database
     void newAnimals();
 
-	// to Animals adoption by random
+	// delete the animal from animal arrays
     void animalsAdoption();
 
 	// check current available animals
@@ -123,12 +125,14 @@ public:
 	// count every animal type on AnimalDatabase.bin to update the size of animal arrays
 	void updateSizeArrays();
 
-	// reading database to updating the animals
+	// Syncronize the animal arrays with the database
 	void updateAnimals();
 
-	// update database animals after adopted
+	// Syncronize the database with the animal arrays
 	void updateDatabase();
 
+	// Create the objects and assign it to the animal arrays
+	void createAnimalObj(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price);
 };
 
 // Get an answer from the user and return it as an integer
