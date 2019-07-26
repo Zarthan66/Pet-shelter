@@ -272,7 +272,7 @@ void Interface::newAnimals()
 					save << speed << "\n";
 					save << price << "\n";
 
-					log("Create new animal(" + type + ")");
+					log("Create an animal(" + type + ")");
 					save.close();
 				}
 				else
