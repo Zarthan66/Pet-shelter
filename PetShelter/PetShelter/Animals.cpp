@@ -5,6 +5,9 @@
 #include <fstream>
 #include <random>
 #include <memory>
+#include <ctime>
+#include <chrono>
+
 
 void Animals::printIdentity()
 {
@@ -36,31 +39,35 @@ void Animals::printIdentity()
 
 void Dogs::speak()
 {
+	std::cout << "(Animal Voice) ";
+
 	if (isSick == true)
 	{
 		std::cout << "...\n";
 	}
 	else
 	{
-		if (personality == "Crazy")
+		using namespace animal::personality;
+
+		if (personality == Grumpy)
 		{
 			std::cout << "Rrrrrgggghh BARK BARK BARK BARK!!! Rrrrggghhh BARK!!\n";
 		}
-		else if (personality == "Aggresive")
+		else if (personality == Aggresive)
 		{
 			std::cout << "Rrrrrgggghh Bark Bark!!\n";
 		}
-		else if (personality == "Peaceful")
+		else if (personality == Peacefull)
 		{
 			std::cout << "Bark Bark Bark!\n";
 		}
-		else if (personality == "Lazy")
+		else if (personality == Lazy)
 		{
 			std::cout << "ZzzZzzZzz..\n";
 		}
 		else
 		{
-			std::cout << "Error, undefined personality\n";
+			log("Error, undefined personality");
 		}
 	}
 }
@@ -78,67 +85,75 @@ void Animals::newIdentity(std::string& subspecies, std::string& personality, boo
 
 void Cats::speak()
 {
+	std::cout << "(Animal Voice) ";
+
 	if (isSick == true)
 	{
 		std::cout << "...\n";
 	}
 	else
 	{
-		if (personality == "Crazy")
+		using namespace animal::personality;
+
+		if (personality == Grumpy)
 		{
-			std::cout << "Shrrriiieekkk, (Growl)..\n";
+			std::cout << "Shrrriiieekkk..\n";
 		}
-		else if (personality == "Aggresive")
+		else if (personality == Aggresive)
 		{
 			std::cout << "Shriek...\n";
 		}
-		else if (personality == "Peaceful")
+		else if (personality == Peacefull)
 		{
 			std::cout << "Meow Meow!\n";
 		}
-		else if (personality == "Lazy")
+		else if (personality == Lazy)
 		{
-			std::cout << "ZzzZzzZzz..\n";
+			std::cout << "Meow..\n";
 		}
 		else
 		{
-			std::cout << "Error, undefined personality\n";
+			log("Error, undefined personality");
 		}
 	}
 }
 
 void Rabbits::speak()
 {
-	std::cout << "....\n";
+	std::cout << "(Animal Voice) ...\n";
 }
 
 void Birds::speak()
 {
+	std::cout << "(Animal Voice) ";
+
 	if (isSick == true)
 	{
 		std::cout << "...\n";
 	}
 	else
 	{
-		if (personality == "Crazy")
+		using namespace animal::personality;
+
+		if (personality == Grumpy)
 		{
 			std::cout << "CUIIIIIT CUIIIIIIIITTTTTTT\n";
 		}
-		else if (personality == "Aggresive")
+		else if (personality == Aggresive)
 		{
 			std::cout << "CUIIIT CUIIIT\n";
 		}
-		else if (personality == "Peaceful")
+		else if (personality == Peacefull)
 		{
 			std::cout << "Cuit cuit cuit cuit\n";
 		}
-		else if (personality == "Lazy")
+		else if (personality == Lazy)
 		{
 			std::cout << "cuit\n";
 		}
 		else
 		{
-			std::cout << "Error, undefined personality\n";
+			log("Error, undefined personality");
 		}
 	}
 }
@@ -158,96 +173,118 @@ void Interface::newAnimals()
 	int age;
 	int speed;
 
-	int totalAnimal{ 0 };
 	std::cout << "How much animal do you want?\n";
-	totalAnimal = userAnswer();
+	std::cout << "(Insert '-1' to get back to the main menu)\n";
+	int totalAnimal{ userAnswer() };
 
-	for (int i = 1; i <= totalAnimal; i++)
+	if (totalAnimal != -1)
 	{
-		int animalType;
-		bool restart{ true };
-		while (restart == true)
+		for (int i = 1; i <= totalAnimal; i++)
 		{
-			std::cout << "What kind of animal do you want for the animal number " << i << ".\n";
-			std::cout << "1. Dog\n";
-			std::cout << "2. Cat\n";
-			std::cout << "3. Rabbit\n";
-			std::cout << "4. Bird\n";
-
-			animalType = userAnswer();
-
-			switch (animalType)
+			int animalType;
+			bool restart{ true };
+			while (restart == true)
 			{
-			case 1:
-				type = types::Dog;
-				restart = false;
-				break;
-			case 2:
-				type = types::Cat;
-				restart = false;
-				break;
-			case 3:
-				type = types::Rabbit;
-				restart = false;
-				break;
-			case 4:
-				type = types::Bird;
-				restart = false;
-				break;
-			default:
-				std::cout << "Please try again, make sure you choose one of the options.\n";
-				break;
+				std::cout << "What kind of animal do you want for the animal number " << i << ".\n";
+				std::cout << "1. Dog\n";
+				std::cout << "2. Cat\n";
+				std::cout << "3. Rabbit\n";
+				std::cout << "4. Bird\n";
+				std::cout << "5. Previous menu\n";
+
+				animalType = userAnswer();
+
+				using namespace animal::types;
+
+				switch (animalType)
+				{
+				case 1:
+					type = Dog;
+					restart = false;
+					break;
+				case 2:
+					type = Cat;
+					restart = false;
+					break;
+				case 3:
+					type = Rabbit;
+					restart = false;
+					break;
+				case 4:
+					type = Bird;
+					restart = false;
+					break;
+				case 5:
+					newAnimals();
+					restart = false;
+					return;
+					break;
+				default:
+					std::cout << "Please try again, make sure you choose one of the options.\n";
+					break;
+				}
 			}
-		}
 
-		generateData(type, subspecies, personality, isMale, isSick, age, speed);
+			generateData(type, subspecies, personality, isMale, isSick, age, speed);
 
-		std::cout << "Information about the Animal number " << i << "\n";
-		std::cout << "=============================================\n";
-		std::cout << "Subspecies\t: " << subspecies << "\n";
+			std::cout << "Information about the Animal number " << i << "\n";
+			std::cout << "=============================================\n";
+			std::cout << "Subspecies\t: " << subspecies << "\n";
 
-		if (age <= 0)
-			std::cout << "Age\t\t: Under one years old\n";
-		else
-			std::cout << "Age\t\t: " << age << " years old\n";
+			if (age <= 0)
+				std::cout << "Age\t\t: Under one years old\n";
+			else
+				std::cout << "Age\t\t: " << age << " years old\n";
 
-		std::cout << "Gender\t\t: ";
-		isMale == true ?
-			std::cout << "Male" :
-			std::cout << "Female";
-		std::cout << "\n";
+			std::cout << "Gender\t\t: ";
+			isMale == true ?
+				std::cout << "Male" :
+				std::cout << "Female";
+			std::cout << "\n";
 
-		std::cout << "Condition\t: ";
-		isSick == true ?
-			std::cout << "Sick" :
-			std::cout << "Fine";
-		std::cout << "\n";
+			std::cout << "Condition\t: ";
+			isSick == true ?
+				std::cout << "Sick" :
+				std::cout << "Fine";
+			std::cout << "\n";
 
-		std::cout << "Speed\t\t: " << speed << " mph\n";
-		std::cout << "Stats\t\t: " << personality << "\n";
-		std::cout << "=============================================\n";
+			std::cout << "Speed\t\t: " << speed << " mph\n";
+			std::cout << "Stats\t\t: " << personality << "\n";
+			std::cout << "=============================================\n";
 
-		std::cout << "What is the price for this animal? (USD)\n";
-		int price{ userAnswer() };
+			std::cout << "What is the price for this animal? (USD)\n";
+			std::cout << "(Insert '-1' to cancel the animal creation)\n";
+			
+			int price{ userAnswer() };
 
-        std::ofstream save("AnimalDatabase.bin", std::ios::app);
+			if (price != -1)
+			{
+				std::ofstream save("AnimalDatabase.bin", std::ios::app);
 
-		if (save.is_open())
-		{
-			save << type << "\n";
-			save << subspecies << "\n";
-			save << personality << "\n";
-			save << isMale << "\n";
-			save << isSick << "\n";
-			save << age << "\n";
-			save << speed << "\n";
-			save << price << "\n";
-			save.close();
-		}
-		else
-		{
-			std::cout << "Database could not be opened for saving the data!\n";
-			exit(1);
+				if (save.is_open())
+				{
+					save << type << "\n";
+					save << subspecies << "\n";
+					save << personality << "\n";
+					save << isMale << "\n";
+					save << isSick << "\n";
+					save << age << "\n";
+					save << speed << "\n";
+					save << price << "\n";
+
+					log("Create new animal(" + type + ")");
+					save.close();
+				}
+				else
+				{
+					log("Error, database failed to open when trying to save the data!");
+					exit(1);
+				}
+			}
+			else
+			{
+				newAnimals();
+			}
 		}
 	}
 }
@@ -325,6 +362,8 @@ int userAnswer()
 
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed)
 {
+	using namespace animal;
+
 	// Subspecies section
 	if (type == types::Dog)
 	{
@@ -348,11 +387,18 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 	}
 	else
 	{
-		std::cout << "Error, the type are undifined.\n";
+		log("Error, undefined animal type");
+		exit(1);
 	}
 
 	// Personality section
-	std::string availablePersonality[4] = { "Aggresive", "Peacefull", "Crazy", "Lazy" };
+	std::string availablePersonality[4] = 
+	{ 
+		personality::Aggresive, 
+		personality::Grumpy,
+		personality::Lazy,
+		personality::Peacefull
+	};
 	personality = availablePersonality[randGenerator(0, 3)];
 
 	// Gender section
@@ -391,7 +437,7 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 	}
 	else
 	{
-		std::cout << "Error, the type are undifined.\n";
+		log("Error, undefined animal type");
 		exit(1);
 	}
 
@@ -426,20 +472,23 @@ void Interface::updateSizeArrays()
 		{
 			std::string type;
 			getline(load, type);
-			if (type == types::Dog)
+
+			using namespace animal::types;
+
+			if (type == Dog)
 				++dogTotalDBase;
-			else if (type == types::Cat)
+			else if (type == Cat)
 				++catTotalDBase;
-			else if (type == types::Rabbit)
+			else if (type == Rabbit)
 				++rabbitTotalDBase;
-			else if (type == types::Bird)
+			else if (type == Bird)
 				++birdTotalDBase;
 		}
 		load.close();
 	}
 	else
 	{
-		std::cout << "Can't open the database to update the total of animals\n";
+		log("Error, failed to open the database when trying to update the total of animals");
 		exit(1);
 	}
 }
@@ -482,13 +531,52 @@ void Interface::updateAnimals()
 			load >> speed;
 			load >> price;
 
-			createAnimalObj(type, subspecies, personality, isMale, isSick, age, speed, price);
+			using namespace animal::types;
+
+			// Create the animal object directly to the animal array
+			if (type == Dog)
+			{
+				if (dogs.size() < dogTotalDBase)
+					dogs.emplace_back(std::unique_ptr<Dogs>(new Dogs(subspecies, personality, isMale, isSick, age, speed, price)));
+				else
+					dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				dogIndex++;
+			}
+			else if (type == Cat)
+			{
+				if (cats.size() < catTotalDBase)
+					cats.emplace_back(std::unique_ptr<Cats>(new Cats(subspecies, personality, isMale, isSick, age, speed, price)));
+				else
+					cats[catIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				catIndex++;
+			}
+			else if (type == Rabbit)
+			{
+				if (rabbits.size() < rabbitTotalDBase)
+					rabbits.emplace_back(std::unique_ptr<Rabbits>(new Rabbits(subspecies, personality, isMale, isSick, age, speed, price)));
+				else
+					rabbits[rabbitIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				rabbitIndex++;
+			}
+			else if (type == Bird)
+			{
+				if (birds.size() < birdTotalDBase)
+					birds.emplace_back(std::unique_ptr<Birds>(new Birds(subspecies, personality, isMale, isSick, age, speed, price)));
+				else
+					birds[birdIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
+				birdIndex++;
+			}
+			else
+			{
+				log("Error, undefined type while updating the animal");
+				exit(1);
+			}
 		}
 		load.close();
 	}
 	else
 	{
-		std::cout << "Can't open the database to update the animals\n";
+		log("Error, failed to open the database when trying to update the animals");
 		exit(1);
 	}
 }
@@ -511,7 +599,7 @@ void Interface::animalsAdoption()
 	std::cout << "2. Cat\n";
 	std::cout << "3. Rabbit\n";
 	std::cout << "4. Bird\n";
-	std::cout << "5. Get back to main menu\n";
+	std::cout << "5. Main menu\n";
 	int animalType{ 0 };
 	animalType = userAnswer();
 	
@@ -519,7 +607,6 @@ void Interface::animalsAdoption()
 	{
 		// show the animals based on the chosen animal type
 		std::cout << "Information about the animals :\n";
-
 		switch (animalType)
 		{
 		case 1:
@@ -529,6 +616,7 @@ void Interface::animalsAdoption()
 				{
 					std::cout << "Dog number [" << i + 1 << "]\n";
 					dogs[i]->printIdentity();
+					dogs[i]->speak();
 					std::cout << "\n";
 				}
 			}
@@ -545,6 +633,7 @@ void Interface::animalsAdoption()
 				{
 					std::cout << "Cat number [" << i + 1 << "]\n";
 					cats[i]->printIdentity();
+					cats[i]->speak();
 					std::cout << "\n";
 				}
 			}
@@ -561,6 +650,7 @@ void Interface::animalsAdoption()
 				{
 					std::cout << "Rabbit number [" << i + 1 << "]\n";
 					rabbits[i]->printIdentity();
+					rabbits[i]->speak();
 					std::cout << "\n";
 				}
 			}
@@ -577,6 +667,7 @@ void Interface::animalsAdoption()
 				{
 					std::cout << "Bird number [" << i + 1 << "]\n";
 					birds[i]->printIdentity();
+					birds[i]->speak();
 					std::cout << "\n";
 				}
 			}
@@ -595,16 +686,23 @@ void Interface::animalsAdoption()
 		while (restart == true)
 		{
 			std::cout << "Which animal you want to adopt\n";
-			std::cout << "Insert '0' to get back to the previous menu\n";
-			int chosenAnimal{ userAnswer() - 1 };
+			std::cout << "(Insert '-1' to get back to the previous menu)\n";
 
-			if (chosenAnimal < 0)
+			int chosenAnimal{ userAnswer() };
+
+			// Decrease value by one since the user's answer are decreased by one
+			if (chosenAnimal == -1)
 			{
+				// Call function and disabled restarting to get back to the previous menu
 				animalsAdoption();
 				restart = false;
+				return;
 			}
 			else
 			{
+				// decrement it to be an iterator for animal arrays
+				--chosenAnimal;
+
 				switch (animalType)
 				{
 				case 1:
@@ -657,7 +755,7 @@ void Animals::assignToDatabase()
 	}
 	else
 	{
-		std::cout << "Database could not be opened for saving the data!\n";
+		log("Error, database failed to open when trying to save the data!");
 		exit(1);
 	}
 }
@@ -683,49 +781,26 @@ void Interface::updateDatabase()
 		birds[i]->assignToDatabase();
 }
 
-void Interface::createAnimalObj(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price)
+void log(std::string message)
 {
-	// to get the right objects while updating it from the database
-	int dogIndex{ 0 };
-	int catIndex{ 0 };
-	int rabbitIndex{ 0 };
-	int birdIndex{ 0 };
+	std::ofstream log("PetShelter.log", std::ios::app);
 
-	if (type == types::Dog)
+	// Disable warning, _CRT_SECURE_NO_WARNINGS
+	#pragma warning(disable : 4996);
+
+	time_t now{ time(0) };
+	char buf[80];
+	struct tm time{ *localtime(&now) };
+
+	strftime(buf, sizeof(buf), "%X", &time);
+	
+	if (log.is_open())
 	{
-		if (dogs.size() < dogTotalDBase)
-			dogs.emplace_back(std::unique_ptr<Dogs>(new Dogs(subspecies, personality, isMale, isSick, age, speed, price)));
-		else
-			dogs[dogIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-		dogIndex++;
-	}
-	else if (type == types::Cat)
-	{
-		if (cats.size() < catTotalDBase)
-			cats.emplace_back(std::unique_ptr<Cats>(new Cats(subspecies, personality, isMale, isSick, age, speed, price)));
-		else
-			cats[catIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-		catIndex++;
-	}
-	else if (type == types::Rabbit)
-	{
-		if (rabbits.size() < rabbitTotalDBase)
-			rabbits.emplace_back(std::unique_ptr<Rabbits>(new Rabbits(subspecies, personality, isMale, isSick, age, speed, price)));
-		else
-			rabbits[rabbitIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-		rabbitIndex++;
-	}
-	else if (type == types::Bird)
-	{
-		if (birds.size() < birdTotalDBase)
-			birds.emplace_back(std::unique_ptr<Birds>(new Birds(subspecies, personality, isMale, isSick, age, speed, price)));
-		else
-			birds[birdIndex]->newIdentity(subspecies, personality, isMale, isSick, age, speed, price);
-		birdIndex++;
+		log << "[" << buf << "] " << message << std::endl;
+		log.close();
 	}
 	else
 	{
-		std::cout << "Something went wrong while updating the animals\n";
-		exit(1);
+		std::cout << "Error, failed to open the log file\n";
 	}
 }

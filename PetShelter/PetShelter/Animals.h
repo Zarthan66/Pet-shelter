@@ -3,10 +3,18 @@
 #include <vector>
 
 // Available animal types for this program
-namespace types
+namespace animal
 {
-	const std::string Dog{ "Dog" }, Cat{ "Cat" }, Rabbit{ "Rabbit" }, Bird{ "Bird" };
-}
+	namespace types
+	{
+		const std::string Dog{ "Dog" }, Cat{ "Cat" }, Rabbit{ "Rabbit" }, Bird{ "Bird" };
+	}
+	namespace personality
+	{
+		const std::string Aggresive{ "Aggresive" }, Peacefull{ "Peacefull" }, Grumpy{ "Grumpy" }, Lazy{ "Lazy" };
+	}
+};
+
 
 // A simple class for all animals
 struct Animals
@@ -37,7 +45,7 @@ struct Dogs : public Animals
 public:
 	Dogs(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = types::Dog;
+		this->type = animal::types::Dog;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -53,7 +61,7 @@ struct Cats : public Animals
 {
 	Cats(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = types::Cat;
+		this->type = animal::types::Cat;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -69,7 +77,7 @@ struct Rabbits : public Animals
 {
 	Rabbits(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = types::Rabbit;
+		this->type = animal::types::Rabbit;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -85,7 +93,7 @@ struct Birds : public Animals
 {
 	Birds(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
-		this->type = types::Bird;
+		this->type = animal::types::Bird;
 		this->subspecies = subspecies;
 		this->personality = personality;
 		this->isMale = isMale;
@@ -106,7 +114,7 @@ private:
 	int rabbitTotalDBase;
 	int birdTotalDBase;
 
-	// animals available to adopted
+	// available animals to adopted
 	std::vector<std::unique_ptr<Dogs>>dogs;
 	std::vector<std::unique_ptr<Cats>>cats;
 	std::vector<std::unique_ptr<Rabbits>>rabbits;
@@ -130,9 +138,6 @@ public:
 
 	// Syncronize the database with the animal arrays
 	void updateDatabase();
-
-	// Create the objects and assign it to the animal arrays
-	void createAnimalObj(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price);
 };
 
 // Get an answer from the user and return it as an integer
@@ -143,5 +148,8 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 
 // Returns a random int that is better than rand
 int randGenerator(int min, int max);
+
+// A log feature, to know the current process and error messages
+void log(std::string message);
 
 
