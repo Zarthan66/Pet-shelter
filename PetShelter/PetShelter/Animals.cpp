@@ -254,7 +254,7 @@ void Interface::newAnimals()
 
 			std::cout << "What is the price for this animal? (USD)\n";
 			std::cout << "(Insert '-1' to cancel the animal creation)\n";
-			
+
 			int price{ userAnswer() };
 
 			if (price != -1)
@@ -392,9 +392,9 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 	}
 
 	// Personality section
-	std::string availablePersonality[4] = 
-	{ 
-		personality::Aggresive, 
+	std::string availablePersonality[4] =
+	{
+		personality::Aggresive,
 		personality::Grumpy,
 		personality::Lazy,
 		personality::Peacefull
@@ -602,7 +602,7 @@ void Interface::animalsAdoption()
 	std::cout << "5. Main menu\n";
 	int animalType{ 0 };
 	animalType = userAnswer();
-	
+
 	if (animalType != 5)
 	{
 		// show the animals based on the chosen animal type
@@ -618,6 +618,7 @@ void Interface::animalsAdoption()
 					dogs[i]->printIdentity();
 					dogs[i]->speak();
 					std::cout << "\n";
+
 				}
 			}
 			else
@@ -635,6 +636,7 @@ void Interface::animalsAdoption()
 					cats[i]->printIdentity();
 					cats[i]->speak();
 					std::cout << "\n";
+
 				}
 			}
 			else
@@ -652,6 +654,7 @@ void Interface::animalsAdoption()
 					rabbits[i]->printIdentity();
 					rabbits[i]->speak();
 					std::cout << "\n";
+
 				}
 			}
 			else
@@ -669,6 +672,7 @@ void Interface::animalsAdoption()
 					birds[i]->printIdentity();
 					birds[i]->speak();
 					std::cout << "\n";
+
 				}
 			}
 			else
@@ -710,24 +714,28 @@ void Interface::animalsAdoption()
 					dogs.shrink_to_fit();
 					updateDatabase();
 					restart = false;
+					log("Adopted Dog...");
 					break;
 				case 2:
 					cats.erase(cats.begin() + chosenAnimal);
 					cats.shrink_to_fit();
 					updateDatabase();
 					restart = false;
+                    log("Adopted Cat...");
 					break;
 				case 3:
 					rabbits.erase(rabbits.begin() + chosenAnimal);
 					rabbits.shrink_to_fit();
 					updateDatabase();
 					restart = false;
+					log("Adopted Bird...");
 					break;
 				case 4:
 					birds.erase(birds.begin() + chosenAnimal);
 					birds.shrink_to_fit();
 					updateDatabase();
 					restart = false;
+					log("Adopted Rabbit...");
 					break;
 				default:
 					std::cout << "Please try again, make sure you chose one of the animals\n";
@@ -740,7 +748,7 @@ void Interface::animalsAdoption()
 void Animals::assignToDatabase()
 {
 	std::ofstream save("AnimalDatabase.bin", std::ios::app);
-	
+
 	if (save.is_open())
 	{
 		save << this->type << "\n";
@@ -763,7 +771,7 @@ void Animals::assignToDatabase()
 void Interface::updateDatabase()
 {
 	std::ofstream clear("AnimalDatabase.bin", std::ios::out | std::ios::trunc);
-	
+
 	// Saving all the dogs data to the database
 	for (int i = 0; i < dogs.size(); i++)
 		dogs[i]->assignToDatabase();
@@ -785,15 +793,15 @@ void log(std::string message)
 {
 	std::ofstream log("PetShelter.log", std::ios::app);
 
-	// Disable warning, _CRT_SECURE_NO_WARNINGS
-	#pragma warning(disable : 4996);
+	 //Disable warning, _CRT_SECURE_NO_WARNINGS
+	 #pragma warning(disable : 4996);
 
 	time_t now{ time(0) };
 	char buf[80];
 	struct tm time{ *localtime(&now) };
 
 	strftime(buf, sizeof(buf), "%X", &time);
-	
+
 	if (log.is_open())
 	{
 		log << "[" << buf << "] " << message << std::endl;
@@ -803,4 +811,5 @@ void log(std::string message)
 	{
 		std::cout << "Error, failed to open the log file\n";
 	}
+
 }
