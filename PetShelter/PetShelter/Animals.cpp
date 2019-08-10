@@ -8,9 +8,21 @@
 #include <ctime>
 #include <chrono>
 
+namespace app
+{
+	namespace date
+	{
+		std::string day, month, year, localTime;
+	}
+	namespace log
+	{
+		std::string address;
+	}
+};
 
 void Animals::printIdentity()
 {
+	log("Print the " + subspecies + " identity");
 	std::cout << "===========================================\n";
 	std::cout << "Subspecies\t: " << subspecies << "\n";
 
@@ -37,8 +49,20 @@ void Animals::printIdentity()
 	std::cout << "===========================================\n";
 }
 
+void Animals::newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price)
+{
+	this->subspecies = subspecies;
+	this->personality = personality;
+	this->isMale = isMale;
+	this->isSick = isSick;
+	this->age = age;
+	this->speed = speed;
+	this->price = price;
+}
+
 void Dogs::speak()
 {
+	log("A dog were speaking");
 	std::cout << "(Animal Voice) ";
 
 	if (isSick == true)
@@ -72,19 +96,9 @@ void Dogs::speak()
 	}
 }
 
-void Animals::newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price)
-{
-	this->subspecies = subspecies;
-	this->personality = personality;
-	this->isMale = isMale;
-	this->isSick = isSick;
-	this->age = age;
-	this->speed = speed;
-	this->price = price;
-}
-
 void Cats::speak()
 {
+	log("A cat were speaking");
 	std::cout << "(Animal Voice) ";
 
 	if (isSick == true)
@@ -120,11 +134,13 @@ void Cats::speak()
 
 void Rabbits::speak()
 {
+	log("A rabbit were speaking");
 	std::cout << "(Animal Voice) ...\n";
 }
 
 void Birds::speak()
 {
+	log("A bird were speaking");
 	std::cout << "(Animal Voice) ";
 
 	if (isSick == true)
@@ -161,17 +177,8 @@ void Birds::speak()
 void Interface::newAnimals()
 {
 	std::cout << "=========================\n";
-	std::cout << "       New Animals       \n";
+	std::cout << "    Get More Animals     \n";
 	std::cout << "=========================\n";
-
-	// Temporary variables
-	std::string type;
-	std::string subspecies;
-	std::string personality;
-	bool isMale;
-	bool isSick;
-	int age;
-	int speed;
 
 	std::cout << "How much animal do you want?\n";
 	std::cout << "(Insert '-1' to get back to the main menu)\n";
@@ -179,6 +186,15 @@ void Interface::newAnimals()
 
 	if (totalAnimal != -1)
 	{
+		// Temporary variables
+		std::string type;
+		std::string subspecies;
+		std::string personality;
+		bool isMale;
+		bool isSick;
+		int age;
+		int speed;
+
 		for (int i = 1; i <= totalAnimal; i++)
 		{
 			int animalType;
@@ -199,18 +215,22 @@ void Interface::newAnimals()
 				switch (animalType)
 				{
 				case 1:
+					log("The user are trying to get more " + Dog);
 					type = Dog;
 					restart = false;
 					break;
 				case 2:
+					log("The user are trying to get more " + Cat);
 					type = Cat;
 					restart = false;
 					break;
 				case 3:
+					log("The user are trying to get more " + Rabbit);
 					type = Rabbit;
 					restart = false;
 					break;
 				case 4:
+					log("The user are trying to get more " + Bird);
 					type = Bird;
 					restart = false;
 					break;
@@ -259,6 +279,8 @@ void Interface::newAnimals()
 
 			if (price != -1)
 			{
+				log("Saving the animal to the database");
+
 				std::ofstream save("AnimalDatabase.bin", std::ios::app);
 
 				if (save.is_open())
@@ -271,8 +293,6 @@ void Interface::newAnimals()
 					save << age << "\n";
 					save << speed << "\n";
 					save << price << "\n";
-
-					log("Create an animal (" + type + ")");
 					save.close();
 				}
 				else
@@ -351,6 +371,7 @@ int userAnswer()
 	std::cin.sync();
 	return stoi(answer);
 */
+	log("Waiting for the user input");
 
 	int answer{ 0 };
 	std::cout << "\nAnswer: ";
@@ -362,6 +383,8 @@ int userAnswer()
 
 void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed)
 {
+	log("Generating the identity for the animal");
+
 	using namespace animal;
 
 	// Subspecies section
@@ -458,6 +481,8 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 
 void Interface::updateSizeArrays()
 {
+	log("Updating the arrays size");
+
 	// Initialize the value before starting the count
 	dogTotalDBase = 0;
 	catTotalDBase = 0;
@@ -495,6 +520,7 @@ void Interface::updateSizeArrays()
 
 void Interface::updateAnimals()
 {
+	log("Updating the animal database");
 	std::ifstream load("AnimalDatabase.bin", std::ios::in);
 
 	if (load.is_open())
@@ -571,6 +597,7 @@ void Interface::updateAnimals()
 				log("Error, undefined type while updating the animal");
 				exit(1);
 			}
+			log("A " + subspecies + " has been added");
 		}
 		load.close();
 	}
@@ -618,7 +645,6 @@ void Interface::animalsAdoption()
 					dogs[i]->printIdentity();
 					dogs[i]->speak();
 					std::cout << "\n";
-
 				}
 			}
 			else
@@ -636,7 +662,6 @@ void Interface::animalsAdoption()
 					cats[i]->printIdentity();
 					cats[i]->speak();
 					std::cout << "\n";
-
 				}
 			}
 			else
@@ -654,7 +679,6 @@ void Interface::animalsAdoption()
 					rabbits[i]->printIdentity();
 					rabbits[i]->speak();
 					std::cout << "\n";
-
 				}
 			}
 			else
@@ -672,7 +696,6 @@ void Interface::animalsAdoption()
 					birds[i]->printIdentity();
 					birds[i]->speak();
 					std::cout << "\n";
-
 				}
 			}
 			else
@@ -697,7 +720,9 @@ void Interface::animalsAdoption()
 			// Decrease value by one since the user's answer are decreased by one
 			if (chosenAnimal == -1)
 			{
-				// Call function and disabled restarting to get back to the previous menu
+				log("Go to the previous menu");
+
+				// Call the function and disabled restarting to get back to the previous menu
 				animalsAdoption();
 				restart = false;
 				return;
@@ -710,32 +735,32 @@ void Interface::animalsAdoption()
 				switch (animalType)
 				{
 				case 1:
+					log("Adopting a dog...");
 					dogs.erase(dogs.begin() + chosenAnimal);
 					dogs.shrink_to_fit();
 					updateDatabase();
 					restart = false;
-					log("Adopted Dog...");
 					break;
 				case 2:
+					log("Adopting a cat...");
 					cats.erase(cats.begin() + chosenAnimal);
 					cats.shrink_to_fit();
 					updateDatabase();
 					restart = false;
-                    log("Adopted Cat...");
 					break;
 				case 3:
+					log("Adopting a rabbit...");
 					rabbits.erase(rabbits.begin() + chosenAnimal);
 					rabbits.shrink_to_fit();
 					updateDatabase();
 					restart = false;
-					log("Adopted Bird...");
 					break;
 				case 4:
+					log("Adopting a bird...");
 					birds.erase(birds.begin() + chosenAnimal);
 					birds.shrink_to_fit();
 					updateDatabase();
 					restart = false;
-					log("Adopted Rabbit...");
 					break;
 				default:
 					std::cout << "Please try again, make sure you chose one of the animals\n";
@@ -751,6 +776,7 @@ void Animals::assignToDatabase()
 
 	if (save.is_open())
 	{
+		log("Add the " + subspecies + " to AnimalDatabase.bin");
 		save << this->type << "\n";
 		save << this->subspecies << "\n";
 		save << this->personality << "\n";
@@ -791,16 +817,16 @@ void Interface::updateDatabase()
 
 void log(std::string message)
 {
-	std::ofstream log("PetShelter.log", std::ios::app);
-
-	 //Disable warning, _CRT_SECURE_NO_WARNINGS
-	 #pragma warning(disable : 4996);
+	//Disable warning, _CRT_SECURE_NO_WARNINGS
+	#pragma warning(disable : 4996);
 
 	time_t now{ time(0) };
 	char buf[80];
 	struct tm time{ *localtime(&now) };
 
 	strftime(buf, sizeof(buf), "%X", &time);
+
+	std::ofstream log(app::log::address, std::ios::app);
 
 	if (log.is_open())
 	{
@@ -811,5 +837,60 @@ void log(std::string message)
 	{
 		std::cout << "Error, failed to open the log file\n";
 	}
+}
+
+void initLocalDate()
+{
+	//Disable warning, _CRT_SECURE_NO_WARNINGS
+	#pragma warning(disable : 4996);
+
+	time_t now{ time(0) };
+	char buf[80];
+	struct tm time { *localtime(&now) };
+
+	using namespace app::date;
+
+	strftime(buf, sizeof(buf), "%d", &time);
+	day = buf;
+
+	strftime(buf, sizeof(buf), "%m", &time);
+	month = buf;
+
+	strftime(buf, sizeof(buf), "%Y", &time);
+	year = buf;
+
+	// Set the local time with format hours.minutes.seconds
+	strftime(buf, sizeof(buf), "%H", &time);
+	localTime += buf;
+	
+	strftime(buf, sizeof(buf), ".%M", &time);
+	localTime += buf;
+	
+	strftime(buf, sizeof(buf), ".%S", &time);
+	localTime += buf;
+
 
 }
+
+void initLog()
+{
+	using namespace app::date;
+	app::log::address = "Pet-shelter-" + year + "." + month + "." + day + "-" + localTime + ".log";
+	std::ofstream initLog(app::log::address, std::ios::app);
+
+	if (initLog.is_open())
+	{
+		// Disable warning, _CRT_SECURE_NO_WARNINGS
+		#pragma warning(disable : 4996);
+
+		auto start{ std::chrono::system_clock::now() };
+		std::time_t date{ std::chrono::system_clock::to_time_t(start) };
+		initLog << "Log created at " << std::ctime(&date) << std::endl;
+		initLog.close();
+	}
+	else
+	{
+		std::cout << "Error, failed to create the log file\n";
+	}
+}
+

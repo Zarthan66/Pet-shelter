@@ -15,7 +15,6 @@ namespace animal
 	}
 };
 
-
 // A simple class for all animals
 struct Animals
 {
@@ -149,7 +148,13 @@ void generateData(std::string& type, std::string& subspecies, std::string& perso
 // Returns a random int that is better than rand
 int randGenerator(int min, int max);
 
-// A log feature, to know the current process and error messages
+// A log feature, contains a record of events.
 void log(std::string message);
+
+// Initialize the log feature.
+void initLog();
+
+// Initialize the local date.
+void initLocalDate();
 
 
