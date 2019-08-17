@@ -5,6 +5,8 @@
 #include <random>
 #include <memory>
 #include <chrono>
+#include <ctime>
+
 
 namespace app
 {
@@ -867,8 +869,6 @@ void initLocalDate()
 	
 	strftime(buf, sizeof(buf), ".%S", &time);
 	localTime += buf;
-
-
 }
 
 void initLog()
