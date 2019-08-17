@@ -1,11 +1,9 @@
 #include "Animals.h"
-#include <cstdlib>
 #include <string>
 #include <vector>
 #include <fstream>
 #include <random>
 #include <memory>
-#include <ctime>
 #include <chrono>
 
 
@@ -582,9 +580,10 @@ void Interface::updateAnimals()
 }
 
 int randGenerator(int min, int max)
-{
-	std::random_device random;
-	std::mt19937 generator(random());
+{	
+	//std::random_device random;
+	auto seed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+	std::mt19937 generator(seed);
 	std::uniform_int_distribution<int> distribution(min, max);
 	return distribution(generator);
 }
