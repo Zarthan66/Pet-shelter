@@ -323,165 +323,164 @@ void Menu::animalsAdoption()
     int animalType{ 0 };
     do
     {
-	std::cout << "=========================\n";
-	std::cout << "      Adopt Animals      \n";
-	std::cout << "=========================\n";
-	std::cout << "What kind of animal do you want to adopt:\n";
-	std::cout << "1. Dog\n";
-	std::cout << "2. Cat\n";
-	std::cout << "3. Rabbit\n";
-	std::cout << "4. Bird\n";
-	std::cout << "5. Main menu\n";
+		std::cout << "=========================\n";
+		std::cout << "      Adopt Animals      \n";
+		std::cout << "=========================\n";
+		std::cout << "What kind of animal do you want to adopt:\n";
+		std::cout << "1. Dog\n";
+		std::cout << "2. Cat\n";
+		std::cout << "3. Rabbit\n";
+		std::cout << "4. Bird\n";
+		std::cout << "5. Main menu\n";
 
-	animalType = userAnswer();
+		animalType = userAnswer();
 
-	if (animalType != 5 && animalType < 5 && animalType > 0)
-	{
-		// show the animals based on the chosen animal type
-		std::cout << "Information about the animals :\n";
-		bool next {true};
-		switch (animalType)
+		if (animalType != 5 && animalType < 5 && animalType > 0)
 		{
-		case 1:
-			if (dogs.size() > 0)
+			// show the animals based on the chosen animal type
+			std::cout << "Information about the animals :\n";
+			bool next {true};
+			switch (animalType)
 			{
-				for (size_t i = 0; i < dogs.size(); i++)
+			case 1:
+				if (dogs.size() > 0)
 				{
-					std::cout << "Dog number [" << i + 1 << "]\n";
-					dogs[i]->printIdentity();
-					dogs[i]->speak();
-					std::cout << "\n";
+					for (size_t i = 0; i < dogs.size(); i++)
+					{
+						std::cout << "Dog number [" << i + 1 << "]\n";
+						dogs[i]->printIdentity();
+						dogs[i]->speak();
+						std::cout << "\n";
+					}
 				}
-			}
-			else
-			{
-				std::cout << "Currently, dogs are not available\n";
-				//animalsAdoption();
-				next = false;
-			}
-			break;
-		case 2:
-			if (cats.size() > 0)
-			{
-				for (size_t i = 0; i < cats.size(); i++)
+				else
 				{
-					std::cout << "Cat number [" << i + 1 << "]\n";
-					cats[i]->printIdentity();
-					cats[i]->speak();
-					std::cout << "\n";
+					std::cout << "Currently, dogs are not available\n";
+					//animalsAdoption();
+					next = false;
 				}
-			}
-			else
-			{
-				std::cout << "Currently, cats are not available.\n";
-				//animalsAdoption();
-				next = false;
-			}
-			break;
-		case 3:
-			if (rabbits.size() > 0)
-			{
-				for (size_t i = 0; i < rabbits.size(); i++)
-				{
-					std::cout << "Rabbit number [" << i + 1 << "]\n";
-					rabbits[i]->printIdentity();
-					rabbits[i]->speak();
-					std::cout << "\n";
-				}
-			}
-			else
-			{
-				std::cout << "Currently, rabbits are not available.\n";
-				//animalsAdoption();
-				next = false;
-			}
-			break;
-		case 4:
-			if (birds.size() > 0)
-			{
-				for (size_t i = 0; i < birds.size(); i++)
-				{
-					std::cout << "Bird number [" << i + 1 << "]\n";
-					birds[i]->printIdentity();
-					birds[i]->speak();
-					std::cout << "\n";
-				}
-			}
-			else
-			{
-				std::cout << "Currently, the birds are not available.\n";
-				//animalsAdoption();
-				next = false;
-			}
-			break;
-		default:
-			std::cout << "Please try again, make sure you chose of one the options.\n";
-			//animalsAdoption();
-			next = false;
-		}
-        if (next)
-        {
-
-		bool restart{ true };
-		while (restart == true)
-		{
-			std::cout << "Which animal you want to adopt\n";
-			std::cout << "(Insert '-1' to get back to the previous menu)\n";
-
-			int chosenAnimal{ userAnswer() };
-
-			// Decrease value by one since the user's answer are decreased by one
-			if (chosenAnimal == -1)
-			{
-				log("Go to the previous menu");
-
-				// Call the function and disabled restarting to get back to the previous menu
-				//aanimalsAdoption();
-				restart = false;
 				break;
-			}
-			else
-			{
-				// decrement it to be an iterator for animal arrays
-				--chosenAnimal;
-
-				switch (animalType)
+			case 2:
+				if (cats.size() > 0)
 				{
-				case 1:
-					log("Adopting a dog...");
-					dogs.erase(dogs.begin() + chosenAnimal);
-					dogs.shrink_to_fit();
-					updateDatabase();
-					restart = false;
-					break;
-				case 2:
-					log("Adopting a cat...");
-					cats.erase(cats.begin() + chosenAnimal);
-					cats.shrink_to_fit();
-					updateDatabase();
-					restart = false;
-					break;
-				case 3:
-					log("Adopting a rabbit...");
-					rabbits.erase(rabbits.begin() + chosenAnimal);
-					rabbits.shrink_to_fit();
-					updateDatabase();
-					restart = false;
-					break;
-				case 4:
-					log("Adopting a bird...");
-					birds.erase(birds.begin() + chosenAnimal);
-					birds.shrink_to_fit();
-					updateDatabase();
-					restart = false;
-					break;
-				default:
-					std::cout << "Please try again, make sure you chose one of the animals\n";
+					for (size_t i = 0; i < cats.size(); i++)
+					{
+						std::cout << "Cat number [" << i + 1 << "]\n";
+						cats[i]->printIdentity();
+						cats[i]->speak();
+						std::cout << "\n";
+					}
+				}
+				else
+				{
+					std::cout << "Currently, cats are not available.\n";
+					//animalsAdoption();
+					next = false;
+				}
+				break;
+			case 3:
+				if (rabbits.size() > 0)
+				{
+					for (size_t i = 0; i < rabbits.size(); i++)
+					{
+						std::cout << "Rabbit number [" << i + 1 << "]\n";
+						rabbits[i]->printIdentity();
+						rabbits[i]->speak();
+						std::cout << "\n";
+					}
+				}
+				else
+				{
+					std::cout << "Currently, rabbits are not available.\n";
+					//animalsAdoption();
+					next = false;
+				}
+				break;
+			case 4:
+				if (birds.size() > 0)
+				{
+					for (size_t i = 0; i < birds.size(); i++)
+					{
+						std::cout << "Bird number [" << i + 1 << "]\n";
+						birds[i]->printIdentity();
+						birds[i]->speak();
+						std::cout << "\n";
+					}
+				}
+				else
+				{
+					std::cout << "Currently, the birds are not available.\n";
+					//animalsAdoption();
+					next = false;
+				}
+				break;
+			default:
+				std::cout << "Please try again, make sure you chose of one the options.\n";
+				//animalsAdoption();
+				next = false;
+			}
+		    if (next == true)
+		    {
+				bool restart{ true };
+				while (restart == true)
+				{
+					std::cout << "Which animal you want to adopt\n";
+					std::cout << "(Insert '-1' to get back to the previous menu)\n";
+
+					int chosenAnimal{ userAnswer() };
+
+					// Decrease value by one since the user's answer are decreased by one
+					if (chosenAnimal == -1)
+					{
+						log("Go to the previous menu");
+
+						// Call the function and disabled restarting to get back to the previous menu
+						//aanimalsAdoption();
+						restart = false;
+						break;
+					}
+					else
+					{
+						// decrement it to be an iterator for animal arrays
+						--chosenAnimal;
+
+						switch (animalType)
+						{
+						case 1:
+							log("Adopting a dog...");
+							dogs.erase(dogs.begin() + chosenAnimal);
+							dogs.shrink_to_fit();
+							updateDatabase();
+							restart = false;
+							break;
+						case 2:
+							log("Adopting a cat...");
+							cats.erase(cats.begin() + chosenAnimal);
+							cats.shrink_to_fit();
+							updateDatabase();
+							restart = false;
+							break;
+						case 3:
+							log("Adopting a rabbit...");
+							rabbits.erase(rabbits.begin() + chosenAnimal);
+							rabbits.shrink_to_fit();
+							updateDatabase();
+							restart = false;
+							break;
+						case 4:
+							log("Adopting a bird...");
+							birds.erase(birds.begin() + chosenAnimal);
+							birds.shrink_to_fit();
+							updateDatabase();
+							restart = false;
+							break;
+						default:
+							std::cout << "Please try again, make sure you chose one of the animals\n";
+						}
+					}
 				}
 			}
 		}
-	}
-	}
     }while (animalType != 5);
 }
 
