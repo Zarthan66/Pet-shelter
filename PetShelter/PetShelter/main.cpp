@@ -1,17 +1,18 @@
+#include "Animals.h"
+#include "DataProvider.h"
+#include "Menu.h"
 #include <iostream>
 #include <ctime>
-#include <chrono>
-#include <cstdlib>
-#include <string>
-#include <fstream>
-#include "Animals.h"
 
 int main()
 {
 	srand(time(nullptr));
-	Interface menu;
+	Menu menu;
 	initLocalDate();
 	initLog();
+
+	// Directory for the database
+	directory::database = "AnimalDatabase.bin";
 
 	// Keep the animals syncronized with the database
 	menu.updateSizeArrays();

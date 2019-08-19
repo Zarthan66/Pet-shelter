@@ -7,16 +7,16 @@ namespace animal
 {
 	namespace types
 	{
-		const std::string Dog{ "Dog" }, Cat{ "Cat" }, Rabbit{ "Rabbit" }, Bird{ "Bird" };
+		extern const std::string Dog, Cat, Rabbit, Bird;
 	}
 	namespace personality
 	{
-		const std::string Aggresive{ "Aggresive" }, Peacefull{ "Peacefull" }, Grumpy{ "Grumpy" }, Lazy{ "Lazy" };
+		extern const std::string Aggresive, Peacefull, Grumpy, Lazy;
 	}
 };
 
 // A simple class for all animals
-struct Animals
+class Animals
 {
 protected:
 	std::string type;
@@ -29,17 +29,20 @@ protected:
 	int price; // USD
 
 public:
-	// Print the details about the animals, included their condition and information
-	void printIdentity();
 	// Animals will speak based on their condition and personality
 	virtual void speak() = 0;
+
+	// Print the details about the animals, included their condition and information
+	void printIdentity();
+
 	// Get new information about the animals
 	void newIdentity(std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed, int& price);
+
 	// Assign the animal to the database
 	void assignToDatabase();
 };
 
-struct Dogs : public Animals
+class Dogs : public Animals
 {
 public:
 	Dogs(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
@@ -56,8 +59,9 @@ public:
 	void speak();
 };
 
-struct Cats : public Animals
+class Cats : public Animals
 {
+public:
 	Cats(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
 		this->type = animal::types::Cat;
@@ -72,8 +76,9 @@ struct Cats : public Animals
 	void speak();
 };
 
-struct Rabbits : public Animals
+class Rabbits : public Animals
 {
+public:
 	Rabbits(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
 		this->type = animal::types::Rabbit;
@@ -88,8 +93,9 @@ struct Rabbits : public Animals
 	void speak();
 };
 
-struct Birds : public Animals
+class Birds : public Animals
 {
+public:
 	Birds(std::string subspecies, std::string personality = "", bool isMale = true, bool isSick = false, int age = 5, int speed = 10, int price = 0)
 	{
 		this->type = animal::types::Bird;
@@ -104,57 +110,5 @@ struct Birds : public Animals
 	void speak();
 };
 
-class Interface
-{
-private:
-	// Total animals from Database
-	int dogTotalDBase;
-	int catTotalDBase;
-	int rabbitTotalDBase;
-	int birdTotalDBase;
-
-	// available animals to adopted
-	std::vector<std::unique_ptr<Dogs>>dogs;
-	std::vector<std::unique_ptr<Cats>>cats;
-	std::vector<std::unique_ptr<Rabbits>>rabbits;
-	std::vector<std::unique_ptr<Birds>>birds;
-
-public:
-	// create an animal and add it to the database
-    void newAnimals();
-
-	// delete the animal from animal arrays
-    void animalsAdoption();
-
-	// check current available animals
-    void checkAnimals();
-
-	// count every animal type on AnimalDatabase.bin to update the size of animal arrays
-	void updateSizeArrays();
-
-	// Syncronize the animal arrays with the database
-	void updateAnimals();
-
-	// Syncronize the database with the animal arrays
-	void updateDatabase();
-};
-
-// Get an answer from the user and return it as an integer
-int userAnswer();
-
-// Give some information for the animals automatically
-void generateData(std::string& type, std::string& subspecies, std::string& personality, bool& isMale, bool& isSick, int& age, int& speed);
-
-// Returns a random int that is better than rand
-int randGenerator(int min, int max);
-
-// A log feature, contains a record of events.
-void log(std::string message);
-
-// Initialize the log feature.
-void initLog();
-
-// Initialize the local date.
-void initLocalDate();
 
 
