@@ -320,6 +320,9 @@ void Menu::updateAnimals()
 
 void Menu::animalsAdoption()
 {
+    int animalType{ 0 };
+    do
+    {
 	std::cout << "=========================\n";
 	std::cout << "      Adopt Animals      \n";
 	std::cout << "=========================\n";
@@ -329,13 +332,14 @@ void Menu::animalsAdoption()
 	std::cout << "3. Rabbit\n";
 	std::cout << "4. Bird\n";
 	std::cout << "5. Main menu\n";
-	int animalType{ 0 };
+
 	animalType = userAnswer();
 
-	if (animalType != 5)
+	if (animalType != 5 && animalType < 5 && animalType > 0)
 	{
 		// show the animals based on the chosen animal type
 		std::cout << "Information about the animals :\n";
+		bool next {true};
 		switch (animalType)
 		{
 		case 1:
@@ -352,7 +356,8 @@ void Menu::animalsAdoption()
 			else
 			{
 				std::cout << "Currently, dogs are not available\n";
-				animalsAdoption();
+				//animalsAdoption();
+				next = false;
 			}
 			break;
 		case 2:
@@ -369,7 +374,8 @@ void Menu::animalsAdoption()
 			else
 			{
 				std::cout << "Currently, cats are not available.\n";
-				animalsAdoption();
+				//animalsAdoption();
+				next = false;
 			}
 			break;
 		case 3:
@@ -386,7 +392,8 @@ void Menu::animalsAdoption()
 			else
 			{
 				std::cout << "Currently, rabbits are not available.\n";
-				animalsAdoption();
+				//animalsAdoption();
+				next = false;
 			}
 			break;
 		case 4:
@@ -403,13 +410,17 @@ void Menu::animalsAdoption()
 			else
 			{
 				std::cout << "Currently, the birds are not available.\n";
-				animalsAdoption();
+				//animalsAdoption();
+				next = false;
 			}
 			break;
 		default:
 			std::cout << "Please try again, make sure you chose of one the options.\n";
-			animalsAdoption();
+			//animalsAdoption();
+			next = false;
 		}
+        if (next)
+        {
 
 		bool restart{ true };
 		while (restart == true)
@@ -425,9 +436,9 @@ void Menu::animalsAdoption()
 				log("Go to the previous menu");
 
 				// Call the function and disabled restarting to get back to the previous menu
-				animalsAdoption();
+				//aanimalsAdoption();
 				restart = false;
-				return;
+				break;
 			}
 			else
 			{
@@ -470,6 +481,8 @@ void Menu::animalsAdoption()
 			}
 		}
 	}
+	}
+    }while (animalType != 5);
 }
 
 void Menu::updateDatabase()
